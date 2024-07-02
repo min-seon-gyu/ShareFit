@@ -1,7 +1,6 @@
-import { Typography } from '@/components/Typography';
-import { pageStyle } from './login.css';
+import { Typography } from '@/components/atoms/Typography';
+import { KakaoLoginButtonStyle, pageStyle } from './login.css';
 import { white } from '@/styles/Color';
-import { KakaoLoginButtonStyle } from '../layout.css';
 import KakaoImg from '@/assets/images/kakao.png';
 import Image from 'next/image';
 
