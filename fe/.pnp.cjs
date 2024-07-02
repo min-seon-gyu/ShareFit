@@ -33,6 +33,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:14.2.4"],\
           ["next", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:14.2.4"],\
+          ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"]\
@@ -1742,6 +1743,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:14.2.4"],\
           ["next", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:14.2.4"],\
+          ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"]\
@@ -3019,6 +3021,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../.yarn/berry/cache/prelude-ls-npm-1.2.1-3e4d272a55-10c0.zip/node_modules/prelude-ls/",\
         "packageDependencies": [\
           ["prelude-ls", "npm:1.2.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["prettier", [\
+      ["npm:3.3.2", {\
+        "packageLocation": "./.yarn/unplugged/prettier-npm-3.3.2-efeafcaa4b/node_modules/prettier/",\
+        "packageDependencies": [\
+          ["prettier", "npm:3.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
