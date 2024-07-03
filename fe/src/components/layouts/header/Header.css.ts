@@ -11,6 +11,7 @@ export const headerStyle = recipe({
     height: 52,
     padding: '0 12px',
     margin: '0 auto',
+    zIndex: 999,
     transition: 'all 0.3s ease-in-out',
 
     display: 'flex',
@@ -30,7 +31,7 @@ export const headerStyle = recipe({
         boxShadow: 'none',
       },
       false: {
-        background: 'transparent',
+        background: white,
         boxShadow: Shadow.MEDIUM,
       },
     },

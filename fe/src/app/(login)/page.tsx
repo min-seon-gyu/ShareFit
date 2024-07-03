@@ -1,8 +1,9 @@
 import { Typography } from '@/components/atoms/Typography';
-import { KakaoLoginButtonStyle, pageStyle } from './login.css';
+import { pageStyle } from './login.css';
 import { white } from '@/styles/Color';
 import KakaoImg from '@/assets/images/kakao.png';
 import Image from 'next/image';
+import { KakaoLoginButton } from './KakaoLoginButton';
 
 export default function Login() {
   return (
@@ -18,17 +19,5 @@ export default function Login() {
         <KakaoLoginButton />
       </div>
     </div>
-  );
-}
-
-function KakaoLoginButton() {
-  return (
-    <button className={KakaoLoginButtonStyle}>
-      <Image width={20} height={20} src={KakaoImg} alt="kakao" />
-
-      <Typography variant="sh4" style={{ flex: 1 }}>
-        카카오 로그인
-      </Typography>
-    </button>
   );
 }

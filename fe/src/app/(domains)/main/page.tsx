@@ -1,3 +1,11 @@
+import Form from './Form';
+import PostList from './PostList';
+
 export default function Main() {
-  return <div>123</div>;
+  return (
+    <div>
+      <Form />
+      <PostList />
+    </div>
+  );
 }
