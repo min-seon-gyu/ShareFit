@@ -40,26 +40,10 @@ export const headerStyle = recipe({
 
 export const buttonWrapStyle = style({
   display: 'flex',
-  gap: 8,
+  alignItems: 'center',
+  gap: 12,
 });
 
-export const tempButtonStyle = recipe({
-  base: {
-    width: 32,
-    height: 32,
-    border: 'none',
-    borderRadius: Radius.MAXIMUM,
-    cursor: 'pointer',
-  },
-
-  variants: {
-    isScrollTop: {
-      true: {
-        background: white,
-      },
-      false: {
-        background: black,
-      },
-    },
-  },
+export const iconButtonStyle = style({
+  cursor: 'pointer',
 });
