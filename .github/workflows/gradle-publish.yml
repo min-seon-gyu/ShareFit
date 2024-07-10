@@ -11,8 +11,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'be/**'
+
 
 jobs:
   deploy:
@@ -30,6 +29,7 @@ jobs:
 
       - name: Create application.yml
         run: |
+          mkdir -p be/src/main/resources
           echo "${{ secrets.APPLICATION_YML }}" > be/src/main/resources/application.yml         
 
       - name: Grant execute permission for gradlew
