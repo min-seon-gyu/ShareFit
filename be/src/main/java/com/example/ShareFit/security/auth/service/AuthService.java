@@ -36,7 +36,7 @@ public class AuthService {
         String refreshToken = jwtUtil.createJwt("refresh", memberResponseDto, refreshTokenExpiredMs);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.addCookie(createCookie("refresh", refreshToken, response));
+        addCookie("refresh", refreshToken, response);
 
         RefreshToken token = RefreshToken.builder()
                 .uuid(memberResponseDto.getUuid())
@@ -102,7 +102,7 @@ public class AuthService {
         refreshTokenRepository.save(token);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.addCookie(createCookie("refresh", refreshToken, response));
+        addCookie("refresh", refreshToken, response);
 
         AuthResponseDto authResponseDto = AuthResponseDto.builder()
                 .accessToken(accessToken)
@@ -111,15 +111,12 @@ public class AuthService {
         return authResponseDto;
     }
 
-    private Cookie createCookie(String key, String value, HttpServletResponse response){
+    private void addCookie(String key, String value, HttpServletResponse response){
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24 * 60 * 60);
         cookie.setHttpOnly(true);
 
         response.addHeader("Set-Cookie", String.format("%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=None",
                 cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getMaxAge()));
-
-
-        return cookie;
     }
 }
