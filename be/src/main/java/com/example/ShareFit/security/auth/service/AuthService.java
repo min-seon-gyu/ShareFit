@@ -5,7 +5,6 @@ import com.example.ShareFit.domain.member.service.MemberService;
 import com.example.ShareFit.domain.refreshToken.RefreshToken;
 import com.example.ShareFit.domain.refreshToken.repository.RefreshTokenRepository;
 import com.example.ShareFit.security.auth.dto.AuthRequestDto;
-import com.example.ShareFit.security.auth.dto.AuthResponseDto;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
