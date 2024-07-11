@@ -7,6 +7,7 @@ import com.example.ShareFit.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +15,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public MemberResponseDto save(String uuid){
+    public MemberResponseDto save(String uuid, String nickname){
         Member member = Member.builder()
                 .uuid(uuid)
+                .nickname(nickname)
                 .role("USER")
                 .build();
 
@@ -34,10 +36,10 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberResponseDto findByUuid(String uuid){
-        Member member = memberRepository.findByUuid(uuid)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
+        Optional<Member> findMember = memberRepository.findByUuid(uuid);
+        if(findMember.isEmpty()) return null;
 
-        return createMemberResponseDto(member);
+        return createMemberResponseDto(findMember.get());
     }
 
     @Transactional

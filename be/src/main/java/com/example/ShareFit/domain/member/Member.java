@@ -21,26 +21,17 @@ public class Member extends JpaBaseEntity {
     private String uuid;
     private String nickname;
     private String role;
-    private boolean available;
-    @OneToMany(mappedBy = "member")
-    private List<Post> posts = new ArrayList<>();
 
     @Builder
-    public Member(String uuid, String role) {
+    public Member(String uuid, String nickname, String role) {
         this.uuid = uuid;
+        this.nickname = nickname;
         this.role = role;
-    }
-
-    public void addPost(Post post){
-        this.posts.add(post);
-        post.setMember(this);
     }
 
     public void update(String nickname){
         if(nickname != null || !nickname.isBlank()){
             this.nickname = nickname;
         }
-
-        if(!available) available = true;
     }
 }

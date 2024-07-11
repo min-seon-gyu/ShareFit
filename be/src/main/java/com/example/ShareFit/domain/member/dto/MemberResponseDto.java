@@ -20,6 +20,4 @@ public class MemberResponseDto {
     private String nickname;
     @Schema(description = "회원 권한")
     private String role;
-    @Schema(description = "회원 사용가능 여부")
-    private boolean available;
 }
