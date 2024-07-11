@@ -3,6 +3,7 @@
 import { getKakaoInfoApi, getKakaoTokenApi, loginApi, refreshTokenApi } from '@/apis/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { setCookie } from 'cookies-next';
 
 export default function Kakao() {
   const router = useRouter();
