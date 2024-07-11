@@ -116,7 +116,7 @@ public class AuthService {
         cookie.setMaxAge(24 * 60 * 60);
         cookie.setHttpOnly(true);
 
-        response.addHeader("Set-Cookie", String.format("%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=None",
+        response.addHeader("Set-Cookie", String.format("%s=%s; Path=/; Max-Age=%d; Secure; HttpOnly; SameSite=None",
                 cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getMaxAge()));
     }
 }
