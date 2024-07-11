@@ -4,7 +4,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'ShareFit',
-  description: 'ShareFit Description',
+  description: '오늘의 스타일을 세상과 공유하다',
 };
 
 export default function RootLayout({
