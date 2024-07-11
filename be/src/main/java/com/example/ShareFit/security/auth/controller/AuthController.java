@@ -2,6 +2,7 @@ package com.example.ShareFit.security.auth.controller;
 
 import com.example.ShareFit.common.swagger.AuthControllerDocs;
 import com.example.ShareFit.security.auth.dto.AuthRequestDto;
+import com.example.ShareFit.security.auth.dto.AuthResponseDto;
 import com.example.ShareFit.security.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,15 +17,15 @@ public class AuthController implements AuthControllerDocs {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(HttpServletResponse response,
+    public ResponseEntity<AuthResponseDto> login(HttpServletResponse response,
                                                 @RequestBody AuthRequestDto authRequestDto) {
-        String result = authService.login(authRequestDto, response);
-        return ResponseEntity.ok(result);
+        AuthResponseDto authResponseDto = authService.login(authRequestDto, response);
+        return ResponseEntity.ok(authResponseDto);
     }
 
     @GetMapping("/refresh")
-    public ResponseEntity<String> refresh(HttpServletRequest request, HttpServletResponse response) {
-        String result = authService.refresh(request, response);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<AuthResponseDto> refresh(HttpServletRequest request, HttpServletResponse response) {
+        AuthResponseDto authResponseDto = authService.refresh(request, response);
+        return ResponseEntity.ok(authResponseDto);
     }
 }

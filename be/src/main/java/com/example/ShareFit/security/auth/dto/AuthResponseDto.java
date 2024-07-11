@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "인증 요청 DTO")
-public class AuthRequestDto {
+@Schema(description = "인증 응답 DTO")
+public class AuthResponseDto {
     @Schema(description = "회원 UUID")
-    String uuid;
-    @Schema(description = "회원 닉네임")
-    String nickname;
+    private String accessToken;
 }

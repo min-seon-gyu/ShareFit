@@ -5,6 +5,7 @@ import com.example.ShareFit.domain.member.service.MemberService;
 import com.example.ShareFit.domain.refreshToken.RefreshToken;
 import com.example.ShareFit.domain.refreshToken.repository.RefreshTokenRepository;
 import com.example.ShareFit.security.auth.dto.AuthRequestDto;
+import com.example.ShareFit.security.auth.dto.AuthResponseDto;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
@@ -24,7 +25,7 @@ public class AuthService {
     private Long accessTokenExpiredMs;
     @Value("${spring.jwt.refreshToken_expiration_time}")
     private Long refreshTokenExpiredMs;
-    public String login(AuthRequestDto authRequestDto, HttpServletResponse response) {
+    public AuthResponseDto login(AuthRequestDto authRequestDto, HttpServletResponse response) {
         MemberResponseDto memberResponseDto = memberService.findByUuid(authRequestDto.getUuid());
 
         if(memberResponseDto == null){
@@ -35,7 +36,7 @@ public class AuthService {
         String refreshToken = jwtUtil.createJwt("refresh", memberResponseDto, refreshTokenExpiredMs);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.addCookie(createCookie("refresh", refreshToken));
+        response.addCookie(createCookie("refresh", refreshToken, response));
 
         RefreshToken token = RefreshToken.builder()
                 .uuid(memberResponseDto.getUuid())
@@ -44,16 +45,19 @@ public class AuthService {
 
         refreshTokenRepository.save(token);
 
-        return "Success";
+        AuthResponseDto authResponseDto = AuthResponseDto.builder()
+                .accessToken(accessToken)
+                .build();
+
+        return authResponseDto;
     }
 
-    public String refresh(HttpServletRequest request, HttpServletResponse response) {
+    public AuthResponseDto refresh(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = null;
         Cookie[] cookies = request.getCookies();
 
         if(cookies == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Refresh Token Null";
         }
 
         for(Cookie cookie : cookies){
@@ -65,7 +69,6 @@ public class AuthService {
 
         if(refreshToken == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Refresh Token Null";
         }
 
         try {
@@ -73,18 +76,15 @@ public class AuthService {
         }
         catch (ExpiredJwtException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Refresh Token Expired";
         }
 
         String category = jwtUtil.getCategory(refreshToken);
         if(!category.equals("refresh")){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Invalid Refresh Token";
         }
 
         if(!refreshTokenRepository.exist(refreshToken)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Invalid Refresh Token";
         }
 
         refreshTokenRepository.delete(refreshToken);
@@ -102,15 +102,24 @@ public class AuthService {
         refreshTokenRepository.save(token);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.addCookie(createCookie("refresh", refreshToken));
+        response.addCookie(createCookie("refresh", refreshToken, response));
 
-        return "Success";
+        AuthResponseDto authResponseDto = AuthResponseDto.builder()
+                .accessToken(accessToken)
+                .build();
+
+        return authResponseDto;
     }
 
-    private Cookie createCookie(String key, String value){
+    private Cookie createCookie(String key, String value, HttpServletResponse response){
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24 * 60 * 60);
         cookie.setHttpOnly(true);
+
+        response.addHeader("Set-Cookie", String.format("%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=None",
+                cookie.getName(), cookie.getValue(), cookie.getPath(), cookie.getMaxAge()));
+
+
         return cookie;
     }
 }
