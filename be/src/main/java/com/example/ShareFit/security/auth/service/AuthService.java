@@ -117,9 +117,7 @@ public class AuthService {
         cookie.setHttpOnly(true);
         cookie.setAttribute("SameSite", "None");
         cookie.setPath("/");
-        cookie.setDomain("13.209.118.165");
         cookie.setSecure(true);
-
         return cookie;
     }
 }
