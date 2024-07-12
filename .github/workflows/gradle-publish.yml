@@ -11,8 +11,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'be/**'
 
 jobs:
   deploy:
@@ -91,5 +89,5 @@ jobs:
             echo "Pulling Docker image..."
             docker pull $ECR_REGISTRY/sharefit:$IMAGE_TAG
             echo "Running new container..."
-            docker run --restart always --name sharefit-server -d -p 8080:8080 $ECR_REGISTRY/sharefit:$IMAGE_TAG
+            docker run --restart always --name sharefit-server -d -p 8443:8443 $ECR_REGISTRY/sharefit:$IMAGE_TAG
           EOF
