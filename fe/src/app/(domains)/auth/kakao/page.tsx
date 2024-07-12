@@ -47,6 +47,7 @@ const login = async (code: string): Promise<boolean> => {
     /**
      *  @todo access_token 저장하기
      */
+    refreshTokenApi();
 
     return true;
   } catch (err) {

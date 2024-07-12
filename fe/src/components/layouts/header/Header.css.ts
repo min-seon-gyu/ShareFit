@@ -1,5 +1,4 @@
 import { black, white } from '@/styles/Color';
-import { Radius } from '@/styles/Radius';
 import { Shadow } from '@/styles/Shadow';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
