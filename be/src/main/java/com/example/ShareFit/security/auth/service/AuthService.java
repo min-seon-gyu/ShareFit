@@ -58,13 +58,11 @@ public class AuthService {
 
         if(cookies == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            System.out.println("쿠키가 존재하지 않습니다.");
             return null;
         }
 
         for(Cookie cookie : cookies){
-            System.out.println("cookie = " + cookie);
-            System.out.println("cookie.getName() = " + cookie.getName());
-            System.out.println("cookie.getValue() = " + cookie.getValue());
             if(cookie.getName().equals("refresh")){
                 refreshToken = cookie.getValue();
                 break;
