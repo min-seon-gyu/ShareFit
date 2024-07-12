@@ -61,6 +61,9 @@ public class AuthService {
         }
 
         for(Cookie cookie : cookies){
+            System.out.println("cookie = " + cookie);
+            System.out.println("cookie.getName() = " + cookie.getName());
+            System.out.println("cookie.getValue() = " + cookie.getValue());
             if(cookie.getName().equals("refresh")){
                 refreshToken = cookie.getValue();
                 break;
@@ -112,11 +115,7 @@ public class AuthService {
     }
 
     private void addCookie(String key, String value, HttpServletResponse response){
-        Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(24 * 60 * 60);
-        cookie.setHttpOnly(true);
-
         response.addHeader("Set-Cookie", String.format("%s=%s; Path=/; Max-Age=%d; Secure; HttpOnly; SameSite=None",
-                cookie.getName(), cookie.getValue(), cookie.getMaxAge()));
+                key, value, 86400));
     }
 }
