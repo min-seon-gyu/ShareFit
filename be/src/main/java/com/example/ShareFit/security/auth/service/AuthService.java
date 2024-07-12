@@ -36,7 +36,7 @@ public class AuthService {
         String refreshToken = jwtUtil.createJwt("refresh", memberResponseDto, refreshTokenExpiredMs);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        addCookie("refresh", refreshToken, response);
+        response.addCookie(createCookie("refresh", refreshToken, response));
 
         RefreshToken token = RefreshToken.builder()
                 .uuid(memberResponseDto.getUuid())
@@ -58,8 +58,6 @@ public class AuthService {
 
         if(cookies == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            System.out.println("쿠키가 존재하지 않습니다.");
-            return null;
         }
 
         for(Cookie cookie : cookies){
@@ -71,7 +69,6 @@ public class AuthService {
 
         if(refreshToken == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return null;
         }
 
         try {
@@ -79,18 +76,15 @@ public class AuthService {
         }
         catch (ExpiredJwtException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return null;
         }
 
         String category = jwtUtil.getCategory(refreshToken);
         if(!category.equals("refresh")){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return null;
         }
 
         if(!refreshTokenRepository.exist(refreshToken)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return null;
         }
 
         refreshTokenRepository.delete(refreshToken);
@@ -108,7 +102,7 @@ public class AuthService {
         refreshTokenRepository.save(token);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        addCookie("refresh", refreshToken, response);
+        response.addCookie(createCookie("refresh", refreshToken, response));
 
         AuthResponseDto authResponseDto = AuthResponseDto.builder()
                 .accessToken(accessToken)
@@ -117,8 +111,15 @@ public class AuthService {
         return authResponseDto;
     }
 
-    private void addCookie(String key, String value, HttpServletResponse response){
-        response.addHeader("Set-Cookie", String.format("%s=%s; Path=/; Max-Age=%d; Secure; HttpOnly; SameSite=None",
-                key, value, 86400));
+    private Cookie createCookie(String key, String value, HttpServletResponse response){
+        Cookie cookie = new Cookie(key, value);
+        cookie.setMaxAge(24 * 60 * 60);
+        cookie.setHttpOnly(true);
+        cookie.setAttribute("SameSite", "None");
+        cookie.setPath("/");
+        cookie.setDomain("13.209.118.165");
+        cookie.setSecure(true);
+
+        return cookie;
     }
 }
