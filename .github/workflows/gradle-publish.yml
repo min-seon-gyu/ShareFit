@@ -11,7 +11,9 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - 'be/**'
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
