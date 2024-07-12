@@ -58,6 +58,7 @@ public class AuthService {
 
         if(cookies == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
 
         for(Cookie cookie : cookies){
@@ -72,6 +73,7 @@ public class AuthService {
 
         if(refreshToken == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
 
         try {
@@ -79,15 +81,18 @@ public class AuthService {
         }
         catch (ExpiredJwtException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
 
         String category = jwtUtil.getCategory(refreshToken);
         if(!category.equals("refresh")){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
 
         if(!refreshTokenRepository.exist(refreshToken)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
 
         refreshTokenRepository.delete(refreshToken);
