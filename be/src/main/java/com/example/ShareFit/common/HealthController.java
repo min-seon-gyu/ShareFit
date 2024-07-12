@@ -11,6 +11,7 @@ public class HealthController {
 
     @GetMapping
     public ResponseEntity<Void> health(){
+        System.out.println("health 요청이 왔습니다.");
         return ResponseEntity.noContent().build();
     }
 }
