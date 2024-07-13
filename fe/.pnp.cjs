@@ -28,7 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@svgr/webpack", "npm:8.1.0"],\
-          ["@types/node", "npm:20.14.9"],\
+          ["@types/node", "npm:20.14.10"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@vanilla-extract/css", "npm:1.15.3"],\
@@ -3665,6 +3665,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
+      ["npm:20.14.10", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/@types-node-npm-20.14.10-5efcbc9009-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.14.10"],\
+          ["undici-types", "npm:5.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:20.14.9", {\
         "packageLocation": "../../../../../.yarn/berry/cache/@types-node-npm-20.14.9-a4571e1932-10c0.zip/node_modules/@types/node/",\
         "packageDependencies": [\
@@ -5836,7 +5844,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["fe", "workspace:."],\
           ["@svgr/webpack", "npm:8.1.0"],\
-          ["@types/node", "npm:20.14.9"],\
+          ["@types/node", "npm:20.14.10"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@vanilla-extract/css", "npm:1.15.3"],\
