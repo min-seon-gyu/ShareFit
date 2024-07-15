@@ -1,7 +1,5 @@
-import axios from 'axios';
 import API from '..';
 import { GetKakaoInfoRequestDto, GetKakaoTokenReqeustDto, LoginRequestDto } from './types';
-import { KAKAO_API_KEY, KAKAO_REDIRECT_URI } from '@/constants/routes';
 
 /**
  *  카카오 token 발급 API
@@ -11,8 +9,8 @@ export const getKakaoTokenApi = async ({ code }: GetKakaoTokenReqeustDto) => {
     `https://kauth.kakao.com/oauth/token`,
     {
       grant_type: 'authorization_code',
-      client_id: KAKAO_API_KEY,
-      redirect_uri: KAKAO_REDIRECT_URI,
+      client_id: process.env.NEXT_PUBLIC_KAKAO_API_KEY,
+      redirect_uri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI,
       code,
     },
     {
