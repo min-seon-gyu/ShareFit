@@ -8,9 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-
         //모든경로에서 3000번 요청을 허용
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000");
+                .allowedOriginPatterns("https://share-fit.vercel.app/, http://localhost:3001")
+	            .allowedMethods("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS")
+            	.allowCredentials(true)
+            	.maxAge(3000);
     }
 }
