@@ -16,7 +16,6 @@ public class Post extends JpaBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
-    private String title;
     private String content;
     private String path;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,18 +23,13 @@ public class Post extends JpaBaseEntity {
     private Member member;
 
     @Builder
-    public Post(String title, String content, String path, Member member) {
-        this.title = title;
+    public Post(String content, String path, Member member) {
         this.content = content;
         this.path = path;
         this.member = member;
     }
 
-    public void update(String title, String content, String path){
-        if(title != null || !title.isBlank()){
-            this.title = title;
-        }
-
+    public void update(String content, String path){
         if(content != null || !content.isBlank()){
             this.content = content;
         }

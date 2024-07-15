@@ -26,7 +26,6 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
 
         Post post = Post.builder()
-                .title(postCreateDto.getTitle())
                 .content(postCreateDto.getContent())
                 .path(saveImage(postCreateDto.getImage()))
                 .member(member)
@@ -49,7 +48,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
-        post.update(postUpdateDto.getTitle(), postUpdateDto.getContent(), saveImage(postUpdateDto.getImage()));
+        post.update(postUpdateDto.getContent(), saveImage(postUpdateDto.getImage()));
         return createPostResponseDto(post);
     }
 
@@ -64,8 +63,8 @@ public class PostService {
     }
     private PostResponseDto createPostResponseDto(Post post){
         PostResponseDto postResponseDto = PostResponseDto.builder()
-                .title(post.getTitle())
                 .content(post.getContent())
+                .path(post.getPath())
                 .build();
 
         return postResponseDto;

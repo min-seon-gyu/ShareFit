@@ -13,8 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @Schema(description = "게시글 등록 요청 DTO")
 public class PostCreateDto {
-    @Schema(description = "게시글 제목")
-    private String title;
     @Schema(description = "게시글 내용")
     private String content;
     @Schema(description = "게시글 이미지")
