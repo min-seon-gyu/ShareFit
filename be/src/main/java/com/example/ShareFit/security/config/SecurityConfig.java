@@ -35,7 +35,7 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration configuration = new CorsConfiguration();
-                        configuration.setAllowedOrigins(List.of("https://share-fit.vercel.app/, http://localhost:3001"));
+                        configuration.setAllowedOrigins(List.of("https://share-fit.vercel.app/, https://localhost:3001"));
                         configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"));
                         configuration.setAllowedHeaders(List.of("*"));
                         configuration.setAllowCredentials(true);
