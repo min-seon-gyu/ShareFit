@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +27,7 @@ public class AuthService {
     private Long accessTokenExpiredMs;
     @Value("${spring.jwt.refreshToken_expiration_time}")
     private Long refreshTokenExpiredMs;
-    public AuthResponseDto login(AuthRequestDto authRequestDto, HttpServletResponse response) {
+    public ResponseEntity<AuthResponseDto> login(AuthRequestDto authRequestDto, HttpServletResponse response) {
         MemberResponseDto memberResponseDto = memberService.findByUuid(authRequestDto.getUuid());
 
         if(memberResponseDto == null){
@@ -49,15 +51,15 @@ public class AuthService {
                 .accessToken(accessToken)
                 .build();
 
-        return authResponseDto;
+        return ResponseEntity.ok(authResponseDto);
     }
 
-    public AuthResponseDto refresh(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<AuthResponseDto> refresh(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = null;
         Cookie[] cookies = request.getCookies();
 
         if(cookies == null){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         for(Cookie cookie : cookies){
@@ -68,23 +70,23 @@ public class AuthService {
         }
 
         if(refreshToken == null){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         try {
             jwtUtil.isExpired(refreshToken);
         }
         catch (ExpiredJwtException e){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         String category = jwtUtil.getCategory(refreshToken);
         if(!category.equals("refresh")){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         if(!refreshTokenRepository.exist(refreshToken)){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         refreshTokenRepository.delete(refreshToken);
@@ -94,6 +96,9 @@ public class AuthService {
         String accessToken = jwtUtil.createJwt("access", memberResponseDto, accessTokenExpiredMs);
         refreshToken = jwtUtil.createJwt("refresh", memberResponseDto, refreshTokenExpiredMs);
 
+        response.setHeader("Authorization", "Bearer " + accessToken);
+        response.addCookie(createCookie("refresh", refreshToken));
+
         RefreshToken token = RefreshToken.builder()
                 .uuid(memberResponseDto.getUuid())
                 .refreshToken(refreshToken)
@@ -101,14 +106,11 @@ public class AuthService {
 
         refreshTokenRepository.save(token);
 
-        response.setHeader("Authorization", "Bearer " + accessToken);
-        response.addCookie(createCookie("refresh", refreshToken));
-
         AuthResponseDto authResponseDto = AuthResponseDto.builder()
                 .accessToken(accessToken)
                 .build();
 
-        return authResponseDto;
+        return ResponseEntity.ok(authResponseDto);
     }
 
     private Cookie createCookie(String key, String value){

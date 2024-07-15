@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "인증 요청 DTO")
 public class AuthRequestDto {
     @Schema(description = "회원 UUID")
-    String uuid;
+    private String uuid;
     @Schema(description = "회원 닉네임")
-    String nickname;
+    private String nickname;
 }
