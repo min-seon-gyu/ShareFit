@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,19 +15,27 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-
-    public JwtFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    private static final String LOGIN_URL = "/auth/login";
+    private static final String REISSUE_URL = "/auth/refresh";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String requestURI = request.getRequestURI();
+        if (requestURI.equals(LOGIN_URL) || requestURI.equals(REISSUE_URL)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String accessToken= request.getHeader("Authorization");
         if (accessToken == null || !accessToken.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            PrintWriter writer = response.getWriter();
+            writer.write("Invalid Access Token");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
