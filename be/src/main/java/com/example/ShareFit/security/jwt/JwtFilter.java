@@ -22,7 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String LOGIN_URL = "/auth/login";
     private static final String REISSUE_URL = "/auth/refresh";
     private static final String HEALTH_URL = "/health";
-    private static final String SWAGGER_URL = "/swagger-ui";
+    private static final String SWAGGER_URL = "/swagger-ui/index.html";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
