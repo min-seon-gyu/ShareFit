@@ -5,6 +5,7 @@ import com.example.ShareFit.security.jwt.CustomLogoutFilter;
 import com.example.ShareFit.security.jwt.JwtFilter;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +71,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/post").authenticated()
                         .requestMatchers(HttpMethod.PATCH,"/post/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE,"/post/**").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/test").authenticated()
                         .anyRequest().permitAll());
+
+        http
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+                        .accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden")));
 
         //세션 설정 : STATELESS
         http
