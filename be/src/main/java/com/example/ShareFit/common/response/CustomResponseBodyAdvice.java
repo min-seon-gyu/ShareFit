@@ -6,11 +6,14 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+@RestControllerAdvice(
+        basePackages = {"com.example.ShareFit.security.auth.controller", "com.example.ShareFit.domain"}
+)
 public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
