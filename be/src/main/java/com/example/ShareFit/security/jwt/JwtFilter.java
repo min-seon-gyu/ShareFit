@@ -22,12 +22,15 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String LOGIN_URL = "/auth/login";
     private static final String REISSUE_URL = "/auth/refresh";
     private static final String HEALTH_URL = "/health";
+    private static final String SWAGGER_URL = "/swagger-ui";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
-        if (requestURI.equals(HEALTH_URL) || requestURI.equals(LOGIN_URL) || requestURI.equals(REISSUE_URL)) {
+
+
+        if (requestURI.equals(HEALTH_URL) || requestURI.equals(LOGIN_URL) || requestURI.equals(REISSUE_URL) || requestURI.equals(SWAGGER_URL)) {
             filterChain.doFilter(request, response);
             return;
         }
