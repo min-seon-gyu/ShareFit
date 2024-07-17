@@ -18,8 +18,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("CodeArena Swagger")
-                .description("CodeArena 유저 및 인증 , ps, 알림에 관한 REST API")
+                .title("ShareFit Swagger")
+                .description("ShareFit API")
                 .version("1.0.0");
     }
 }
