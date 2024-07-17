@@ -19,11 +19,13 @@ public class AuthController implements AuthControllerDocs {
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(HttpServletResponse response,
                                                 @RequestBody AuthRequestDto authRequestDto) {
-        return authService.login(authRequestDto, response);
+        AuthResponseDto authResponseDto = authService.login(authRequestDto, response);
+        return ResponseEntity.ok(authResponseDto);
     }
 
     @GetMapping("/refresh")
     public ResponseEntity<AuthResponseDto> refresh(HttpServletRequest request, HttpServletResponse response) {
-        return authService.refresh(request, response);
+        AuthResponseDto authResponseDto = authService.refresh(request, response);
+        return ResponseEntity.ok(authResponseDto);
     }
 }
