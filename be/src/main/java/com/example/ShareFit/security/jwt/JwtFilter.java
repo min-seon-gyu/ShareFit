@@ -21,12 +21,13 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private static final String LOGIN_URL = "/auth/login";
     private static final String REISSUE_URL = "/auth/refresh";
+    private static final String HEALTH_URL = "/health";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
-        if (requestURI.equals(LOGIN_URL) || requestURI.equals(REISSUE_URL)) {
+        if (requestURI.equals(HEALTH_URL) || requestURI.equals(LOGIN_URL) || requestURI.equals(REISSUE_URL)) {
             filterChain.doFilter(request, response);
             return;
         }
