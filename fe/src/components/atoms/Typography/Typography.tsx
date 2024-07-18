@@ -35,6 +35,7 @@ const _Typography = (
     <Element
       className={typographyStyle({ variant })}
       {...htmlAttributes}
+      ref={ref}
       style={{ color, ...htmlAttributes.style }}>
       {children}
     </Element>
