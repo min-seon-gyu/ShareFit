@@ -5,10 +5,11 @@ import com.example.ShareFit.domain.post.dto.PostCreateDto;
 import com.example.ShareFit.domain.post.dto.PostResponseDto;
 import com.example.ShareFit.domain.post.dto.PostUpdateDto;
 import com.example.ShareFit.domain.post.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/post")
@@ -16,9 +17,16 @@ import org.springframework.web.bind.annotation.*;
 public class PostController implements PostControllerDocs {
     private final PostService postService;
 
+    @PostMapping("/image")
+    public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) throws IOException {
+        String url = postService.uploadImage(image);
+        return ResponseEntity.ok(url);
+    }
+
     @PostMapping
-    public ResponseEntity<PostResponseDto> save(HttpServletRequest request, @RequestBody PostCreateDto postCreateDto){
-        String accessToken = request.getHeader("Authorization");
+    public ResponseEntity<PostResponseDto> save(@RequestHeader("Authorization") String authorizationHeader,
+                                                @RequestBody PostCreateDto postCreateDto){
+        String accessToken = authorizationHeader.split("\\s")[1];
         PostResponseDto postResponseDto = postService.save(accessToken, postCreateDto);
         return ResponseEntity.ok(postResponseDto);
     }
@@ -29,10 +37,9 @@ public class PostController implements PostControllerDocs {
         return ResponseEntity.ok(postResponseDto);
     }
 
-    @PatchMapping("/{post_id}")
-    public ResponseEntity<PostResponseDto> update(@PathVariable("post_id") Long id,
-                                                  @RequestBody PostUpdateDto postUpdateDto){
-        PostResponseDto postResponseDto = postService.update(id, postUpdateDto);
+    @PatchMapping
+    public ResponseEntity<PostResponseDto> update(@RequestBody PostUpdateDto postUpdateDto){
+        PostResponseDto postResponseDto = postService.update(postUpdateDto);
         return ResponseEntity.ok(postResponseDto);
     }
 

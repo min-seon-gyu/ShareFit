@@ -7,9 +7,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Getter
 @Entity
+@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends JpaBaseEntity {
     @Id
@@ -17,25 +19,25 @@ public class Post extends JpaBaseEntity {
     @Column(name = "post_id")
     private Long id;
     private String content;
-    private String path;
+    private String imagePath;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public Post(String content, String path, Member member) {
+    public Post(String content, String imagePath, Member member) {
         this.content = content;
-        this.path = path;
+        this.imagePath = imagePath;
         this.member = member;
     }
 
-    public void update(String content, String path){
-        if(content != null || !content.isBlank()){
+    public void update(String content, String imagePath){
+        if(content != null && !content.isBlank()){
             this.content = content;
         }
 
-        if(path != null || !path.isBlank()){
-            this.path = path;
+        if(imagePath != null && !imagePath.isBlank()){
+            this.imagePath = imagePath;
         }
     }
 }

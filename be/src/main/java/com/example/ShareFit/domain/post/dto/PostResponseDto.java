@@ -17,5 +17,5 @@ public class PostResponseDto {
     @Schema(description = "게시글 내용")
     private String content;
     @Schema(description = "게시글 이미지 경로")
-    private String path;
+    private String imagePath;
 }
