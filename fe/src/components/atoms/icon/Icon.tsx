@@ -1,7 +1,7 @@
 import { IconName, icons } from './icons';
 
 type Props = {
-  size?: 'medium';
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   name: IconName;
   fill?: string;
   stroke?: string;
@@ -12,7 +12,10 @@ export default function Icon({ size = 'medium', name, fill, stroke, style }: Pro
   const Component = icons[name] || null;
 
   const sizeMap = {
+    small: 16,
     medium: 24,
+    large: 32,
+    xlarge: 96,
   };
 
   const width = sizeMap[size];

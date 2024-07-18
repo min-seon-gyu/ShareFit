@@ -45,4 +45,5 @@ export const buttonWrapStyle = style({
 
 export const iconButtonStyle = style({
   cursor: 'pointer',
+  display: 'flex',
 });
