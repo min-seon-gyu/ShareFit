@@ -10,7 +10,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
         //모든경로에서 3000번 요청을 허용
         corsRegistry.addMapping("/**")
-                .allowedOriginPatterns("https://share-fit.vercel.app/, https://localhost:3001")
+                .allowedOriginPatterns("https://share-fit.vercel.app/", "https://localhost:3001")
 	            .allowedMethods("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS")
             	.allowCredentials(true)
             	.maxAge(3000);
