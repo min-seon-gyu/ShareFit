@@ -30,7 +30,7 @@ public class Member extends JpaBaseEntity {
     }
 
     public void update(String nickname){
-        if(nickname != null || !nickname.isBlank()){
+        if(nickname != null && !nickname.isBlank()){
             this.nickname = nickname;
         }
     }

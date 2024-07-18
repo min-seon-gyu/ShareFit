@@ -58,6 +58,7 @@ public class MemberService {
 
     private MemberResponseDto createMemberResponseDto(Member member){
         MemberResponseDto memberResponseDto = MemberResponseDto.builder()
+                .id(member.getId())
                 .uuid(member.getUuid())
                 .nickname(member.getNickname())
                 .role(member.getRole())
