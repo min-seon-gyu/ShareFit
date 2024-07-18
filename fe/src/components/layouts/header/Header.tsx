@@ -5,8 +5,12 @@ import { buttonWrapStyle, headerStyle, iconButtonStyle } from './Header.css';
 import { useCheckScrollToTop } from '@/hooks/interaction/useCheckScrollTop';
 import { black, white } from '@/styles/Color';
 import Icon from '@/components/atoms/icon/Icon';
+import { useRouter } from 'next/navigation';
+import { EDIT } from '@/constants/routes';
 
 export default function Header() {
+  const router = useRouter();
+
   const isScrollTop = useCheckScrollToTop();
   const mainColor = isScrollTop ? white : black;
 
@@ -17,7 +21,7 @@ export default function Header() {
       </Typography>
 
       <div className={buttonWrapStyle}>
-        <div className={iconButtonStyle}>
+        <div className={iconButtonStyle} onClick={() => router.push(EDIT)}>
           <Icon name="plus" fill={mainColor} />
         </div>
         <div className={iconButtonStyle}>

@@ -1,11 +1,3 @@
-import Form from './Form';
-import PostList from './PostList';
-
 export default function Main() {
-  return (
-    <div>
-      <Form />
-      <PostList />
-    </div>
-  );
+  return <div>메인 페이지 (리스트)</div>;
 }
