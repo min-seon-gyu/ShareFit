@@ -5,7 +5,7 @@ import { GetKakaoInfoRequestDto, GetKakaoTokenReqeustDto, LoginRequestDto } from
  *  카카오 token 발급 API
  */
 export const getKakaoTokenApi = async ({ code }: GetKakaoTokenReqeustDto) => {
-  return API.post(
+  return await API.post(
     `https://kauth.kakao.com/oauth/token`,
     {
       grant_type: 'authorization_code',

@@ -6,29 +6,35 @@ import { Textarea } from '@/components/atoms/Textarea';
 import { useState } from 'react';
 import { FileUploader, FileUploaderProvider } from '@/components/atoms/FileUploader';
 import Image from 'next/image';
+import { createPostApi, uploadImageApi } from '@/apis/post';
 
 export default function Edit() {
   const [content, setContent] = useState('');
-  const [img, setImg] = useState('');
+  const [imagePath, setImagePath] = useState('');
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
-  const handleFileChange = (file: File) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  const handleFileChange = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
 
-    reader.onload = () => {
-      setImg(reader.result as string);
-    };
+    const res = await uploadImageApi({ formData });
+
+    setImagePath(res.data.data.imagePath);
+  };
+
+  const handleFormSubmit = async () => {
+    const res = await createPostApi({ content, imagePath });
+    console.log(res);
   };
 
   return (
     <div className={pageStyle}>
-      {img ? (
+      {imagePath ? (
         <div className={imageWrapStyle}>
-          <Image src={img} layout="fill" alt="preview-img" />
+          <Image src={imagePath} layout="fill" alt="preview-img" />
         </div>
       ) : (
         <FileUploaderProvider handleFile={handleFileChange}>
@@ -41,7 +47,7 @@ export default function Edit() {
         height={140}
         onChange={handleContentChange}
       />
-      <Button text="공유하기" fullWidth />
+      <Button text="공유하기" fullWidth onClick={handleFormSubmit} />
     </div>
   );
 }
