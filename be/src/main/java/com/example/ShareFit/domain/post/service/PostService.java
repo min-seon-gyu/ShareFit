@@ -4,6 +4,7 @@ import com.example.ShareFit.common.S3Service;
 import com.example.ShareFit.domain.member.Member;
 import com.example.ShareFit.domain.member.repository.MemberRepository;
 import com.example.ShareFit.domain.post.Post;
+import com.example.ShareFit.domain.post.dto.ImageResponseDto;
 import com.example.ShareFit.domain.post.dto.PostCreateDto;
 import com.example.ShareFit.domain.post.dto.PostResponseDto;
 import com.example.ShareFit.domain.post.dto.PostUpdateDto;
@@ -22,11 +23,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
-    private final S3Service s3Service;
 
-    public String uploadImage(MultipartFile image) throws IOException {
-        return s3Service.upload(image);
-    }
     @Transactional
     public PostResponseDto save(String token, PostCreateDto postCreateDto) {
         Long memberId = jwtUtil.getId(token);

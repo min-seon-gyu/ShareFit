@@ -1,6 +1,8 @@
 package com.example.ShareFit.domain.post.controller;
 
+import com.example.ShareFit.common.S3Service;
 import com.example.ShareFit.common.swagger.PostControllerDocs;
+import com.example.ShareFit.domain.post.dto.ImageResponseDto;
 import com.example.ShareFit.domain.post.dto.PostCreateDto;
 import com.example.ShareFit.domain.post.dto.PostResponseDto;
 import com.example.ShareFit.domain.post.dto.PostUpdateDto;
@@ -16,11 +18,13 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PostController implements PostControllerDocs {
     private final PostService postService;
+    private final S3Service s3Service;
 
     @PostMapping("/image")
-    public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) throws IOException {
-        String url = postService.uploadImage(image);
-        return ResponseEntity.ok(url);
+    public ResponseEntity<ImageResponseDto> uploadImage(@RequestPart(value = "image") MultipartFile image) throws IOException {
+        String url = s3Service.upload(image);
+        ImageResponseDto imageResponseDto = new ImageResponseDto(url);
+        return ResponseEntity.ok(imageResponseDto);
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.example.ShareFit.common.swagger;
 
+import com.example.ShareFit.domain.post.dto.ImageResponseDto;
 import com.example.ShareFit.domain.post.dto.PostCreateDto;
 import com.example.ShareFit.domain.post.dto.PostResponseDto;
 import com.example.ShareFit.domain.post.dto.PostUpdateDto;
@@ -18,7 +19,7 @@ import java.io.IOException;
 public interface PostControllerDocs {
 
     @Operation(summary = "이미지 등록", description = "파라미터로 받은 데이터를 활용하여 이미지 등록")
-    public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) throws IOException;
+    public ResponseEntity<ImageResponseDto> uploadImage(@RequestPart(value = "image") MultipartFile image) throws IOException;
 
     @Operation(summary = "게시글 등록", description = "파라미터로 받은 데이터를 활용하여 게시글 등록")
     public ResponseEntity<PostResponseDto> save(@RequestHeader("Authorization") String authorizationHeader,
