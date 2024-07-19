@@ -14,6 +14,19 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    @Transactional
+    public MemberResponseDto save(String uuid, String nickname, String imagePath){
+        Member member = Member.builder()
+                .uuid(uuid)
+                .nickname(nickname)
+                .imagePath(imagePath)
+                .role("USER")
+                .build();
+
+        memberRepository.save(member);
+        return createMemberResponseDto(member);
+    }
+
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id){
         Member member = memberRepository.findById(id)

@@ -16,4 +16,6 @@ public class AuthRequestDto {
     private String uuid;
     @Schema(description = "회원 닉네임")
     private String nickname;
+    @Schema(description = "이미지 경로")
+    private String imagePath;
 }
