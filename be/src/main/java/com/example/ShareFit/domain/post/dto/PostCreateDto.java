@@ -5,16 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "게시글 등록 요청 DTO")
-public class    PostCreateDto {
+public class PostCreateDto {
     @Schema(description = "게시글 내용")
     private String content;
-    @Schema(description = "이미지 경로")
+    @Schema(description = "게시글 이미지 경로")
     private String imagePath;
 }
