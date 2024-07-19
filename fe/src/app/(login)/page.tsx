@@ -1,8 +1,6 @@
 import { Typography } from '@/components/atoms/Typography';
 import { pageStyle } from './login.css';
 import { white } from '@/styles/Color';
-import KakaoImg from '@/assets/images/kakao.png';
-import Image from 'next/image';
 import { KakaoLoginButton } from './KakaoLoginButton';
 
 export default function Login() {

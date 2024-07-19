@@ -42,6 +42,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:18.3.1"],\
+          ["tanstack-query", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:1.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"]\
         ],\
         "linkType": "SOFT"\
@@ -3628,6 +3629,55 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@tanstack/match-sorter-utils", [\
+      ["npm:8.15.1", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/@tanstack-match-sorter-utils-npm-8.15.1-96c5c557c9-10c0.zip/node_modules/@tanstack/match-sorter-utils/",\
+        "packageDependencies": [\
+          ["@tanstack/match-sorter-utils", "npm:8.15.1"],\
+          ["remove-accents", "npm:0.5.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/query-core", [\
+      ["npm:5.51.9", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/@tanstack-query-core-npm-5.51.9-6ef6539693-10c0.zip/node_modules/@tanstack/query-core/",\
+        "packageDependencies": [\
+          ["@tanstack/query-core", "npm:5.51.9"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/vue-query", [\
+      ["npm:5.51.9", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/@tanstack-vue-query-npm-5.51.9-941786a2f2-10c0.zip/node_modules/@tanstack/vue-query/",\
+        "packageDependencies": [\
+          ["@tanstack/vue-query", "npm:5.51.9"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:3f542c0ad6a335f6806d32138b8cab3a4fb70cb28eaf71329b0180cec4eea72e91d5fe331756f18406be236008b9419b0490d958069dec981022f82451d1c7a6#npm:5.51.9", {\
+        "packageLocation": "./.yarn/__virtual__/@tanstack-vue-query-virtual-f1749331db/6/.yarn/berry/cache/@tanstack-vue-query-npm-5.51.9-941786a2f2-10c0.zip/node_modules/@tanstack/vue-query/",\
+        "packageDependencies": [\
+          ["@tanstack/vue-query", "virtual:3f542c0ad6a335f6806d32138b8cab3a4fb70cb28eaf71329b0180cec4eea72e91d5fe331756f18406be236008b9419b0490d958069dec981022f82451d1c7a6#npm:5.51.9"],\
+          ["@tanstack/match-sorter-utils", "npm:8.15.1"],\
+          ["@tanstack/query-core", "npm:5.51.9"],\
+          ["@types/vue", null],\
+          ["@types/vue__composition-api", null],\
+          ["@vue/composition-api", null],\
+          ["@vue/devtools-api", "npm:6.6.3"],\
+          ["vue", null],\
+          ["vue-demi", "virtual:f1749331dbbd2f193221449023e231b1339c071b7689731275134555a3e2ce28042c8e98eba91861644a54b24dde86127ef7d1830eab5d05fbe6022e8e24e3c6#npm:0.14.8"]\
+        ],\
+        "packagePeers": [\
+          "@types/vue",\
+          "@types/vue__composition-api",\
+          "@vue/composition-api",\
+          "vue"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@trysound/sax", [\
       ["npm:0.2.0", {\
         "packageLocation": "../../../../../.yarn/berry/cache/@trysound-sax-npm-0.2.0-9f763d0295-10c0.zip/node_modules/@trysound/sax/",\
@@ -3940,6 +3990,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/webpack",\
           "webpack"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@vue/devtools-api", [\
+      ["npm:6.6.3", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/@vue-devtools-api-npm-6.6.3-6d1769be91-10c0.zip/node_modules/@vue/devtools-api/",\
+        "packageDependencies": [\
+          ["@vue/devtools-api", "npm:6.6.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5858,6 +5917,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.3.2"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:18.3.1"],\
+          ["tanstack-query", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:1.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"]\
         ],\
         "linkType": "SOFT"\
@@ -7945,6 +8005,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["remove-accents", [\
+      ["npm:0.5.0", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/remove-accents-npm-0.5.0-aed916f699-10c0.zip/node_modules/remove-accents/",\
+        "packageDependencies": [\
+          ["remove-accents", "npm:0.5.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["require-like", [\
       ["npm:0.1.2", {\
         "packageLocation": "../../../../../.yarn/berry/cache/require-like-npm-0.1.2-9f547327b9-10c0.zip/node_modules/require-like/",\
@@ -8497,6 +8566,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["tanstack-query", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/tanstack-query-npm-1.0.0-1380c9e1a7-10c0.zip/node_modules/tanstack-query/",\
+        "packageDependencies": [\
+          ["tanstack-query", "npm:1.0.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:1.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/tanstack-query-virtual-3f542c0ad6/6/.yarn/berry/cache/tanstack-query-npm-1.0.0-1380c9e1a7-10c0.zip/node_modules/tanstack-query/",\
+        "packageDependencies": [\
+          ["tanstack-query", "virtual:7f44276b73f36ee0cc25a7f36615ff8b12c171283de87be8069ea89e96b5664ff18363784ffed5cabc4a863f66ea476690d583da3f1f9422dcd66d9b64365b23#npm:1.0.0"],\
+          ["@tanstack/vue-query", "virtual:3f542c0ad6a335f6806d32138b8cab3a4fb70cb28eaf71329b0180cec4eea72e91d5fe331756f18406be236008b9419b0490d958069dec981022f82451d1c7a6#npm:5.51.9"],\
+          ["@types/tanstack__vue-query", null],\
+          ["axios", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/tanstack__vue-query"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["tapable", [\
       ["npm:2.2.1", {\
         "packageLocation": "../../../../../.yarn/berry/cache/tapable-npm-2.2.1-8cf5ff3039-10c0.zip/node_modules/tapable/",\
@@ -8858,6 +8949,32 @@ const RAW_RUNTIME_STATE =
           ["pathe", "npm:1.1.2"],\
           ["picocolors", "npm:1.0.1"],\
           ["vite", "virtual:2c30557d8ca5e7c67e7558d45bc44bef6c7a622b34a97fa8102f3235f92769c87777d34ed37059c12d8f3a21841ea06cf4badc5dc796697b0f765c17db6e24e5#npm:5.3.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["vue-demi", [\
+      ["npm:0.14.8", {\
+        "packageLocation": "./.yarn/unplugged/vue-demi-virtual-86babd9e52/node_modules/vue-demi/",\
+        "packageDependencies": [\
+          ["vue-demi", "npm:0.14.8"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:f1749331dbbd2f193221449023e231b1339c071b7689731275134555a3e2ce28042c8e98eba91861644a54b24dde86127ef7d1830eab5d05fbe6022e8e24e3c6#npm:0.14.8", {\
+        "packageLocation": "./.yarn/unplugged/vue-demi-virtual-86babd9e52/node_modules/vue-demi/",\
+        "packageDependencies": [\
+          ["vue-demi", "virtual:f1749331dbbd2f193221449023e231b1339c071b7689731275134555a3e2ce28042c8e98eba91861644a54b24dde86127ef7d1830eab5d05fbe6022e8e24e3c6#npm:0.14.8"],\
+          ["@types/vue", null],\
+          ["@types/vue__composition-api", null],\
+          ["@vue/composition-api", null],\
+          ["vue", null]\
+        ],\
+        "packagePeers": [\
+          "@types/vue",\
+          "@types/vue__composition-api",\
+          "@vue/composition-api",\
+          "vue"\
         ],\
         "linkType": "HARD"\
       }]\

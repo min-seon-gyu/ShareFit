@@ -16,7 +16,8 @@
     "cookies-next": "^4.2.1",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tanstack-query": "^1.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
