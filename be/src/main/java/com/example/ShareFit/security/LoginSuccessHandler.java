@@ -52,7 +52,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         cookie.setHttpOnly(true);
         cookie.setAttribute("SameSite", "None");
         cookie.setPath("/");
-        cookie.setDomain("https://share-fit.vercel.app");
         cookie.setSecure(true);
         return cookie;
     }
