@@ -11,6 +11,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['sharefit-bucket.s3.ap-northeast-2.amazonaws.com'],
+  },
 };
 
 export default withVanillaExtract(nextConfig);
