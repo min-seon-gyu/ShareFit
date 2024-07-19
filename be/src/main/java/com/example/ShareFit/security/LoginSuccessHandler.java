@@ -47,6 +47,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         StringBuilder sb = new StringBuilder();
         sb.append(request.getScheme()).append("://").append(request.getServerName());
         if(request.getServerPort() == 3001) sb.append(":").append(3001);
+        sb.append("/auth/kakao");
 
         response.sendRedirect(sb.toString());
     }
