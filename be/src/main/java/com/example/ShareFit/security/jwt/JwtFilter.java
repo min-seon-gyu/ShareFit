@@ -1,7 +1,7 @@
 package com.example.ShareFit.security.jwt;
 
-import com.example.ShareFit.security.CustomUserDetails;
 import com.example.ShareFit.security.MemberSecurity;
+import com.example.ShareFit.security.ShareFitOAuth2User;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -49,16 +49,16 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String uuid = jwtUtil.getUuid(token);
-        String role = jwtUtil.getRole(token);
-
         MemberSecurity memberSecurity = MemberSecurity.builder()
-                        .uuid(uuid)
-                        .role(role)
-                        .build();
+                .id(jwtUtil.getId(token))
+                .uuid(jwtUtil.getUuid(token))
+                .nickname(jwtUtil.getNickname(token))
+                .imagePath(jwtUtil.getImagePath(token))
+                .role(jwtUtil.getRole(token))
+                .build();
 
-        CustomUserDetails customUserDetails = new CustomUserDetails(memberSecurity);
-        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        ShareFitOAuth2User shareFitOAuth2User = new ShareFitOAuth2User(memberSecurity);
+        Authentication authToken = new UsernamePasswordAuthenticationToken(shareFitOAuth2User, null, shareFitOAuth2User.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);

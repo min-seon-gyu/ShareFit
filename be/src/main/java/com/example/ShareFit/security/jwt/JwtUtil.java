@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+
 @Component
 public class JwtUtil {
 
@@ -29,6 +30,10 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("nickname", String.class);
     }
 
+    public String getImagePath(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("imagePath", String.class);
+    }
+
     public String getRole(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
@@ -46,8 +51,23 @@ public class JwtUtil {
                 .id(getId(token))
                 .uuid(getUuid(token))
                 .nickname(getNickname(token))
+                .imagePath(getImagePath(token))
                 .role(getRole(token))
                 .build();
+    }
+
+    public String createJwt(String category, Long id, String uuid, String nickname, String imagePath, String role, Long expiredMs) {
+        return Jwts.builder()
+                .claim("category", category)
+                .claim("id", id)
+                .claim("uuid", uuid)
+                .claim("nickname", nickname)
+                .claim("imagePath", imagePath)
+                .claim("role", role)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiredMs))
+                .signWith(secretKey)
+                .compact();
     }
 
     public String createJwt(String category, MemberResponseDto memberResponseDto, Long expiredMs) {

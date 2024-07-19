@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "인증 응답 DTO")
 public class AuthResponseDto {
-    @Schema(description = "회원 UUID")
+    @Schema(description = "Access Token")
     private String accessToken;
 }

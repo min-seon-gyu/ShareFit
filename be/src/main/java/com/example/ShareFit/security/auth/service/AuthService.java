@@ -4,7 +4,6 @@ import com.example.ShareFit.domain.member.dto.MemberResponseDto;
 import com.example.ShareFit.domain.member.service.MemberService;
 import com.example.ShareFit.domain.refreshToken.RefreshToken;
 import com.example.ShareFit.domain.refreshToken.repository.RefreshTokenRepository;
-import com.example.ShareFit.security.auth.dto.AuthRequestDto;
 import com.example.ShareFit.security.auth.dto.AuthResponseDto;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -19,38 +18,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
     private final JwtUtil jwtUtil;
-    private final MemberService memberService;
     private final RefreshTokenRepository refreshTokenRepository;
     @Value("${spring.jwt.accessToken_expiration_time}")
     private Long accessTokenExpiredMs;
     @Value("${spring.jwt.refreshToken_expiration_time}")
     private Long refreshTokenExpiredMs;
-
-    public AuthResponseDto login(AuthRequestDto authRequestDto, HttpServletResponse response) {
-        MemberResponseDto memberResponseDto = memberService.findByUuid(authRequestDto.getUuid());
-
-        if(memberResponseDto == null){
-            memberResponseDto = memberService.save(authRequestDto.getUuid(), authRequestDto.getNickname());
-        }
-
-        String accessToken = jwtUtil.createJwt("access", memberResponseDto, accessTokenExpiredMs);
-        String refreshToken = jwtUtil.createJwt("refresh", memberResponseDto, refreshTokenExpiredMs);
-
-        response.addCookie(createCookie("refresh", refreshToken));
-
-        RefreshToken token = RefreshToken.builder()
-                .uuid(memberResponseDto.getUuid())
-                .refreshToken(refreshToken)
-                .build();
-
-        refreshTokenRepository.save(token);
-
-        AuthResponseDto authResponseDto = AuthResponseDto.builder()
-                .accessToken(accessToken)
-                .build();
-
-        return authResponseDto;
-    }
 
     public AuthResponseDto refresh(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = null;
