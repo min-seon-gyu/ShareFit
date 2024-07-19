@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "이미지 등록 응답 DTO")
 public class ImageResponseDto {
-    @Schema(description = "이미지 경로")
+    @Schema(description = "게시글 이미지 경로")
     private String imagePath;
 }

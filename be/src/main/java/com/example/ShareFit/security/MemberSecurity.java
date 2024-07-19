@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberSecurity {
+    private Long id;
     private String uuid;
+    private String nickname;
+    private String imagePath;
     private String role;
 }

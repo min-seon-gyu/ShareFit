@@ -1,14 +1,11 @@
 package com.example.ShareFit.domain.member;
 
 import com.example.ShareFit.common.JpaBaseEntity;
-import com.example.ShareFit.domain.post.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -20,12 +17,14 @@ public class Member extends JpaBaseEntity {
     private Long id;
     private String uuid;
     private String nickname;
+    private String imagePath;
     private String role;
 
     @Builder
-    public Member(String uuid, String nickname, String role) {
+    public Member(String uuid, String nickname, String role, String imagePath) {
         this.uuid = uuid;
         this.nickname = nickname;
+        this.imagePath = imagePath;
         this.role = role;
     }
 

@@ -14,18 +14,6 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    @Transactional
-    public MemberResponseDto save(String uuid, String nickname){
-        Member member = Member.builder()
-                .uuid(uuid)
-                .nickname(nickname)
-                .role("USER")
-                .build();
-
-        memberRepository.save(member);
-        return createMemberResponseDto(member);
-    }
-
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id){
         Member member = memberRepository.findById(id)
@@ -61,6 +49,7 @@ public class MemberService {
                 .id(member.getId())
                 .uuid(member.getUuid())
                 .nickname(member.getNickname())
+                .imagePath(member.getImagePath())
                 .role(member.getRole())
                 .build();
 
