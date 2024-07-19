@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { getCookie } from 'cookies-next';
 
 const API = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -10,6 +11,9 @@ const API = axios.create({
 /** Request */
 API.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
+    const accessToken = getCookie('accessToken');
+    config.headers.Authorization = `Bearer ${accessToken}`;
+
     return config;
   },
 

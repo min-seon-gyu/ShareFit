@@ -1,5 +1,12 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import API from '..';
-import { GetKakaoInfoRequestDto, GetKakaoTokenReqeustDto, LoginRequestDto } from './types';
+import {
+  GetKakaoInfoRequestDto,
+  GetKakaoTokenReqeustDto,
+  LoginRequestDto,
+  LoginResponseDto,
+} from './types';
+import { ApiResponse } from '../types';
 
 /**
  *  카카오 token 발급 API
@@ -40,7 +47,10 @@ export const getKakaoInfoApi = async ({ accessToken }: GetKakaoInfoRequestDto) =
 /**
  *  로그인 API
  */
-export const loginApi = async ({ uuid, nickname }: LoginRequestDto) => {
+export const loginApi = async ({
+  uuid,
+  nickname,
+}: LoginRequestDto): Promise<AxiosResponse<ApiResponse<LoginResponseDto>, AxiosError>> => {
   return await API.post(
     '/auth/login',
     {

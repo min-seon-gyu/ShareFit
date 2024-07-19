@@ -10,3 +10,7 @@ export interface LoginRequestDto {
   uuid: string;
   nickname: string;
 }
+
+export interface LoginResponseDto {
+  accessToken: string;
+}
