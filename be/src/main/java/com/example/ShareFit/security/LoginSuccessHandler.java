@@ -43,13 +43,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
                 .build();
 
         refreshTokenRepository.save(token);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(request.getScheme()).append("://").append(request.getServerName());
-        if(request.getServerPort() == 3001) sb.append(":").append(3001);
-        sb.append("/auth/kakao");
-
-        response.sendRedirect(sb.toString());
+        response.sendRedirect("https://share-fit.vercel.app/auth/kakao");
     }
 
     private Cookie createCookie(String key, String value){
