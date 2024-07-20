@@ -6,11 +6,18 @@ import { Textarea } from '@/components/atoms/Textarea';
 import { useState } from 'react';
 import { FileUploader, FileUploaderProvider } from '@/components/atoms/FileUploader';
 import Image from 'next/image';
-import { createPostApi, uploadImageApi } from '@/apis/post';
+import { useCreatePost, useUploadImage } from '@/apis/post';
+import { useRouter } from 'next/navigation';
+import { MAIN } from '@/constants/routes';
 
 export default function Edit() {
+  const router = useRouter();
+
   const [content, setContent] = useState('');
   const [imagePath, setImagePath] = useState('');
+
+  const { uploadImageMutate } = useUploadImage();
+  const { createPostMutate } = useCreatePost();
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -20,14 +27,25 @@ export default function Edit() {
     const formData = new FormData();
     formData.append('image', file);
 
-    const res = await uploadImageApi({ formData });
-
-    setImagePath(res.data.data.imagePath);
+    uploadImageMutate(
+      { formData },
+      {
+        onSuccess: (res) => {
+          setImagePath(res.data.data.imagePath);
+        },
+      },
+    );
   };
 
   const handleFormSubmit = async () => {
-    const res = await createPostApi({ content, imagePath });
-    console.log(res);
+    createPostMutate(
+      { content, imagePath },
+      {
+        onSuccess: () => {
+          router.push(MAIN);
+        },
+      },
+    );
   };
 
   return (
@@ -38,7 +56,7 @@ export default function Edit() {
         </div>
       ) : (
         <FileUploaderProvider handleFile={handleFileChange}>
-          <FileUploader description="이미지를 업로드해주세요 (~~~비율 설명)" />
+          <FileUploader description="업로드할 이미지를 업로드해주세요 (3:4 비율 권장)" />
         </FileUploaderProvider>
       )}
       <Textarea

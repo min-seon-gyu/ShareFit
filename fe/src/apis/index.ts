@@ -11,8 +11,15 @@ const API = axios.create({
 /** Request */
 API.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
+    // 카카오 api는 별도의 헤더 전송 필요
+    if (config.url?.includes('kakao.com')) {
+      return config;
+    }
+
     const accessToken = getCookie('accessToken');
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     return config;
   },

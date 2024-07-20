@@ -1,6 +1,6 @@
 'use client';
 
-import { getKakaoInfoApi, getKakaoTokenApi, loginApi, refreshTokenApi } from '@/apis/auth';
+import { getKakaoInfoApi, getKakaoTokenApi, loginApi } from '@/apis/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { setCookie } from 'cookies-next';
@@ -11,15 +11,15 @@ export default function Kakao() {
 
   const code = params.get('code');
 
-  useEffect(() => {
-    if (!code) return;
+  const isRequest = useRef(false);
 
-    console.log(1111);
+  useEffect(() => {
+    if (!code || isRequest.current) return;
+
+    isRequest.current = true;
 
     const handleLogin = async () => {
       await login(code);
-
-      router.replace('/main');
     };
 
     handleLogin();
@@ -36,11 +36,12 @@ const login = async (code: string): Promise<void> => {
     const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
 
     const { id: uuid } = kakaoData;
-    const { nickname } = kakaoData.kakao_account.profile;
+    const { nickname, profile_image } = kakaoData.kakao_account.profile;
 
-    const res = await loginApi({ uuid, nickname });
+    const res = await loginApi({ uuid, nickname, imagePath: profile_image });
 
     const { accessToken } = res.data.data;
+
     setCookie('accessToken', accessToken);
   } catch (err) {
     console.log(err);
