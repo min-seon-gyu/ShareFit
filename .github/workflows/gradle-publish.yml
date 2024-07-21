@@ -52,8 +52,8 @@ jobs:
       - name: Upload to AWS S3
         run: |
           aws deploy push \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} \
             --ignore-hidden-files \
-            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+            --s3-location s3://$AWS_S3_BUCKET/$GITHUB_SHA.zip \
             --source .
           
