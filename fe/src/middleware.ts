@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { KAKAO_OAUTH_CALLBACK, LOGIN, POST } from './constants/routes';
 
 /**
  *  @middleware
@@ -9,17 +10,17 @@ export function middleware(request: NextRequest) {
   const pathUrl = request.nextUrl.pathname;
 
   // oauth callback은 미들웨어 제외
-  if (pathUrl === '/auth/kakao') {
+  if (pathUrl === KAKAO_OAUTH_CALLBACK) {
     return;
   }
 
   // 토큰 O, 로그인 페이지 접근시 메인 페이지로 리디렉트
-  if (accessToken && pathUrl === '/') {
-    return NextResponse.redirect(new URL('/main', request.url));
+  if (accessToken && pathUrl === LOGIN) {
+    return NextResponse.redirect(new URL(POST, request.url));
   }
 
   // 토큰 X, 페이지 접근시 로그인 페이지로 리디렉트
-  if (!accessToken && pathUrl !== '/') {
+  if (!accessToken && pathUrl !== LOGIN) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 }
