@@ -51,6 +51,7 @@ jobs:
 
       - name: Upload to AWS S3
         run: |
+          cd be
           aws deploy push \
             --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} \
             --ignore-hidden-files \
