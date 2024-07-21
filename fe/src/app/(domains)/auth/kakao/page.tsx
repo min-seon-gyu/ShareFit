@@ -4,6 +4,7 @@ import { getKakaoInfoApi, getKakaoTokenApi, loginApi } from '@/apis/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { setCookie } from 'cookies-next';
+import { LOGIN, MAIN } from '@/constants/routes';
 
 export default function Kakao() {
   const router = useRouter();
@@ -19,7 +20,12 @@ export default function Kakao() {
     isRequest.current = true;
 
     const handleLogin = async () => {
-      await login(code);
+      try {
+        await login(code);
+        router.push(MAIN);
+      } catch {
+        router.push(LOGIN);
+      }
     };
 
     handleLogin();
@@ -29,21 +35,17 @@ export default function Kakao() {
 }
 
 const login = async (code: string): Promise<void> => {
-  try {
-    const { data: tokenData } = await getKakaoTokenApi({ code });
-    const { access_token } = tokenData;
+  const { data: tokenData } = await getKakaoTokenApi({ code });
+  const { access_token } = tokenData;
 
-    const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
+  const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
 
-    const { id: uuid } = kakaoData;
-    const { nickname, profile_image } = kakaoData.kakao_account.profile;
+  const { id: uuid } = kakaoData;
+  const { nickname, profile_image_url: imagePath } = kakaoData.kakao_account.profile;
 
-    const res = await loginApi({ uuid, nickname, imagePath: profile_image });
+  const res = await loginApi({ uuid, nickname, imagePath });
 
-    const { accessToken } = res.data.data;
+  const { accessToken } = res.data.data;
 
-    setCookie('accessToken', accessToken);
-  } catch (err) {
-    console.log(err);
-  }
+  setCookie('accessToken', accessToken);
 };
