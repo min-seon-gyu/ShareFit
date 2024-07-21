@@ -6,7 +6,7 @@ import { useCheckScrollToTop } from '@/hooks/interaction/useCheckScrollTop';
 import { black, white } from '@/styles/Color';
 import Icon from '@/components/atoms/icon/Icon';
 import { useRouter } from 'next/navigation';
-import { EDIT } from '@/constants/routes';
+import { EDIT, POST } from '@/constants/routes';
 
 export default function Header() {
   const router = useRouter();
@@ -16,7 +16,12 @@ export default function Header() {
 
   return (
     <div className={headerStyle({ isScrollTop })}>
-      <Typography as="h1" variant="h5" color={mainColor}>
+      <Typography
+        style={{ cursor: 'pointer' }}
+        as="h1"
+        variant="h5"
+        color={mainColor}
+        onClick={() => router.push(POST)}>
         ShareFit
       </Typography>
 
@@ -24,9 +29,9 @@ export default function Header() {
         <div className={iconButtonStyle} onClick={() => router.push(EDIT)}>
           <Icon name="plus" fill={mainColor} />
         </div>
-        <div className={iconButtonStyle}>
+        {/* <div className={iconButtonStyle}>
           <Icon name="user" stroke={mainColor} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

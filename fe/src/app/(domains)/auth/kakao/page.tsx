@@ -4,7 +4,7 @@ import { getKakaoInfoApi, getKakaoTokenApi, loginApi } from '@/apis/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { setCookie } from 'cookies-next';
-import { LOGIN, MAIN } from '@/constants/routes';
+import { LOGIN, POST } from '@/constants/routes';
 
 export default function Kakao() {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function Kakao() {
     const handleLogin = async () => {
       try {
         await login(code);
-        router.push(MAIN);
+        router.push(POST);
       } catch {
         router.push(LOGIN);
       }

@@ -8,7 +8,7 @@ import { FileUploader, FileUploaderProvider } from '@/components/atoms/FileUploa
 import Image from 'next/image';
 import { useCreatePost, useUploadImage } from '@/apis/post';
 import { useRouter } from 'next/navigation';
-import { MAIN } from '@/constants/routes';
+import { POST } from '@/constants/routes';
 
 export default function Edit() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function Edit() {
       { content, imagePath },
       {
         onSuccess: () => {
-          router.push(MAIN);
+          router.push(POST);
         },
       },
     );
