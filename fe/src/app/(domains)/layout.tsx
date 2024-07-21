@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { pageStyle } from './layout.css';
 import Header from '@/components/layouts/header/Header';
 
