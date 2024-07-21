@@ -3,13 +3,14 @@ import { Radius } from '@/styles/Radius';
 import { style } from '@vanilla-extract/css';
 
 export const KakaoLoginButtonStyle = style({
-  width: '183px',
-  padding: '9px 12px',
+  width: 183,
+  height: 45,
   color: black,
   background: '#FAE100',
   borderRadius: Radius.MEDIUM,
   border: 'none',
   cursor: 'pointer',
+  position: 'relative',
 
   display: 'flex',
   columnGap: 8,

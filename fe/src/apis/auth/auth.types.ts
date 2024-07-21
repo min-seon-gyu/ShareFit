@@ -9,4 +9,9 @@ export interface GetKakaoInfoRequestDto {
 export interface LoginRequestDto {
   uuid: string;
   nickname: string;
+  imagePath: string;
+}
+
+export interface LoginResponseDto {
+  accessToken: string;
 }

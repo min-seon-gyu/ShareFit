@@ -1,8 +1,10 @@
 'use client';
 
-import { getKakaoInfoApi, getKakaoTokenApi, loginApi, refreshTokenApi } from '@/apis/auth';
+import { getKakaoInfoApi, getKakaoTokenApi, loginApi } from '@/apis/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { setCookie } from 'cookies-next';
+import { LOGIN, POST } from '@/constants/routes';
 
 export default function Kakao() {
   const router = useRouter();
@@ -18,10 +20,11 @@ export default function Kakao() {
     isRequest.current = true;
 
     const handleLogin = async () => {
-      const result = await login(code);
-
-      if (result) {
-        router.push('/main');
+      try {
+        await login(code);
+        router.push(POST);
+      } catch {
+        router.push(LOGIN);
       }
     };
 
@@ -31,27 +34,18 @@ export default function Kakao() {
   return null;
 }
 
-const login = async (code: string): Promise<boolean> => {
-  try {
-    const { data: tokenData } = await getKakaoTokenApi({ code });
-    const { access_token } = tokenData;
+const login = async (code: string): Promise<void> => {
+  const { data: tokenData } = await getKakaoTokenApi({ code });
+  const { access_token } = tokenData;
 
-    const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
+  const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
 
-    const { id: uuid } = kakaoData;
-    const { nickname } = kakaoData.kakao_account.profile;
+  const { id: uuid } = kakaoData;
+  const { nickname, profile_image_url: imagePath } = kakaoData.kakao_account.profile;
 
-    await loginApi({ uuid, nickname });
+  const res = await loginApi({ uuid, nickname, imagePath });
 
-    /**
-     *  @todo access_token 저장하기
-     */
-    refreshTokenApi();
+  const { accessToken } = res.data.data;
 
-    return true;
-  } catch (err) {
-    console.log(err);
-  }
-
-  return false;
+  setCookie('accessToken', accessToken);
 };
