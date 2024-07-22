@@ -4,6 +4,7 @@ import com.example.ShareFit.domain.member.Member;
 import com.example.ShareFit.domain.member.dto.MemberResponseDto;
 import com.example.ShareFit.domain.member.dto.MemberUpdateDto;
 import com.example.ShareFit.domain.member.repository.MemberRepository;
+import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +14,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final JwtUtil jwtUtil;
 
     @Transactional
     public MemberResponseDto save(String uuid, String nickname, String imagePath){
         Member member = Member.builder()
                 .uuid(uuid)
                 .nickname(nickname)
-                .imagePath(imagePath)
+                .profilePath(imagePath)
                 .role("USER")
                 .build();
 
         memberRepository.save(member);
+        return createMemberResponseDto(member);
+    }
+
+    @Transactional(readOnly = true)
+    public MemberResponseDto find(String token){
+        Long id = jwtUtil.getId(token);
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
+
         return createMemberResponseDto(member);
     }
 
@@ -44,7 +55,8 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDto update(Long id, MemberUpdateDto memberUpdateDto) {
+    public MemberResponseDto update(String token, MemberUpdateDto memberUpdateDto) {
+        Long id = jwtUtil.getId(token);
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
 
@@ -53,7 +65,8 @@ public class MemberService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(String token) {
+        Long id = jwtUtil.getId(token);
         memberRepository.deleteById(id);
     }
 
@@ -62,7 +75,7 @@ public class MemberService {
                 .id(member.getId())
                 .uuid(member.getUuid())
                 .nickname(member.getNickname())
-                .imagePath(member.getImagePath())
+                .profilePath(member.getProfilePath())
                 .role(member.getRole())
                 .build();
 

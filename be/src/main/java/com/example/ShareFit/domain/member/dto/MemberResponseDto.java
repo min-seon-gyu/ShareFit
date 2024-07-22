@@ -18,8 +18,8 @@ public class MemberResponseDto {
     private String uuid;
     @Schema(description = "회원 닉네임")
     private String nickname;
-    @Schema(description = "회원 이미지 경로")
-    private String imagePath;
+    @Schema(description = "회원 프로필 경로")
+    private String profilePath;
     @Schema(description = "회원 권한")
     private String role;
 }

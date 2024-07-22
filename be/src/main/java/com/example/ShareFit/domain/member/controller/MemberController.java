@@ -9,27 +9,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController implements MemberControllerDocs {
     private final MemberService memberService;
 
-    @GetMapping("/{member_id}")
-    public ResponseEntity<MemberResponseDto> find(@PathVariable("member_id") Long id){
+    @GetMapping("/member")
+    public ResponseEntity<MemberResponseDto> find(@RequestHeader("Authorization") String authorizationHeader){
+        String accessToken = authorizationHeader.split("\\s")[1];
+        MemberResponseDto memberResponseDto = memberService.find(accessToken);
+        return ResponseEntity.ok(memberResponseDto);
+    }
+
+    @GetMapping("/member/{member_id}")
+    public ResponseEntity<MemberResponseDto> findById(@PathVariable("member_id") Long id){
         MemberResponseDto memberResponseDto = memberService.findById(id);
         return ResponseEntity.ok(memberResponseDto);
     }
 
-    @PatchMapping("/{member_id}")
-    public ResponseEntity<MemberResponseDto> update(@PathVariable("member_id") Long id,
+    @PatchMapping("/member")
+    public ResponseEntity<MemberResponseDto> update(@RequestHeader("Authorization") String authorizationHeader,
                                                     @RequestBody MemberUpdateDto memberUpdateDto){
-        MemberResponseDto memberResponseDto = memberService.update(id, memberUpdateDto);
+        String accessToken = authorizationHeader.split("\\s")[1];
+        MemberResponseDto memberResponseDto = memberService.update(accessToken, memberUpdateDto);
         return ResponseEntity.ok(memberResponseDto);
     }
 
-    @DeleteMapping("/{member_id}")
-    public ResponseEntity<Void> delete(@PathVariable("member_id") Long id){
-        memberService.delete(id);
+    @DeleteMapping("/member")
+    public ResponseEntity<Void> delete(@RequestHeader("Authorization") String authorizationHeader){
+        String accessToken = authorizationHeader.split("\\s")[1];
+        memberService.delete(accessToken);
         return ResponseEntity.noContent().build();
     }
 }

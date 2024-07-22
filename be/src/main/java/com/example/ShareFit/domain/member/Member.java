@@ -17,14 +17,14 @@ public class Member extends JpaBaseEntity {
     private Long id;
     private String uuid;
     private String nickname;
-    private String imagePath;
+    private String profilePath;
     private String role;
 
     @Builder
-    public Member(String uuid, String nickname, String role, String imagePath) {
+    public Member(String uuid, String nickname, String role, String profilePath) {
         this.uuid = uuid;
         this.nickname = nickname;
-        this.imagePath = imagePath;
+        this.profilePath = profilePath;
         this.role = role;
     }
 

@@ -30,7 +30,7 @@ public class AuthService {
         MemberResponseDto memberResponseDto = memberService.findByUuid(authRequestDto.getUuid());
 
         if(memberResponseDto == null){
-            memberResponseDto = memberService.save(authRequestDto.getUuid(), authRequestDto.getNickname(), authRequestDto.getImagePath());
+            memberResponseDto = memberService.save(authRequestDto.getUuid(), authRequestDto.getNickname(), authRequestDto.getProfilePath());
         }
 
         String accessToken = jwtUtil.createJwt("access", memberResponseDto, accessTokenExpiredMs);
