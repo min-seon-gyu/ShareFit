@@ -91,7 +91,9 @@ public class PostService {
     private PostPageResponseDto createPostPageResponseDto(Page<Post> posts){
         List<PostResponseDto> convert = posts.stream().map(p -> createPostResponseDto(p)).toList();
         PostPageResponseDto postPageResponseDto = PostPageResponseDto.builder()
-                .count(convert.size())
+                .totalCount((int) posts.getTotalElements())
+                .totalPages(posts.getTotalPages() - 1)
+                .currentPage(posts.getNumber())
                 .result(convert)
                 .build();
 

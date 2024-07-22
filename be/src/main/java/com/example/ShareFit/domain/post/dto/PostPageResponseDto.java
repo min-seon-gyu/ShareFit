@@ -15,7 +15,11 @@ import java.util.List;
 @Schema(description = "게시글 페이지 조회 응답 DTO")
 public class PostPageResponseDto {
     @Schema(description = "전체 게시글 수")
-    private int count;
+    private Integer totalCount;
+    @Schema(description = "전체 페이지 수")
+    private Integer totalPages;
+    @Schema(description = "현재 페이지")
+    private Integer currentPage;
     @Schema(description = "게시글 리스트")
-    private List<PostResponseDto> result = new ArrayList<>();
+    private List<PostResponseDto> result;
 }

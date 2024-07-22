@@ -42,7 +42,7 @@ public class PostController implements PostControllerDocs {
 
     @GetMapping("/posts")
     public ResponseEntity<PostPageResponseDto> findAll(@RequestParam(value = "uuid", required = false) String uuid,
-                                                       @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable){
+                                                       @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable){
         PostPageResponseDto postPageResponseDto = postService.findAll(pageable, uuid);
         return ResponseEntity.ok(postPageResponseDto);
     }
