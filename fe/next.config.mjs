@@ -12,7 +12,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['sharefit-bucket.s3.ap-northeast-2.amazonaws.com'],
+    domains: ['sharefit-bucket.s3.ap-northeast-2.amazonaws.com', 't1.kakaocdn.net'],
   },
 };
 

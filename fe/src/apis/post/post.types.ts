@@ -11,7 +11,15 @@ export interface CreatePostRequestDto {
   imagePath: string;
 }
 
-export interface CreatePostResponseDto {}
+export interface CreatePostResponseDto {
+  id: number;
+  content: string;
+  imagePath: string;
+  likes: number;
+  memberId: string;
+  nickname: string;
+  profilePath: string;
+}
 
 export interface UpdatePostRequestDto {
   id: number;
@@ -23,4 +31,15 @@ export interface GetPostResponseDto {
   id: number;
   content: string;
   imagePath: string;
+  likes: number;
+  memberId: string;
+  nickname: string;
+  profilePath: string;
 }
+
+export interface GetPostsParams {
+  uuid?: string;
+  page?: number;
+}
+
+export type GetPostsResponseDto = GetPostResponseDto[];

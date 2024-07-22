@@ -4,6 +4,8 @@ import {
   CreatePostRequestDto,
   CreatePostResponseDto,
   GetPostResponseDto,
+  GetPostsParams,
+  GetPostsResponseDto,
   UpdatePostRequestDto,
   UploadImageRequestDto,
   UploadImageResponseDto,
@@ -54,4 +56,14 @@ export const deletePostApi = async (
   id: number,
 ): Promise<AxiosResponse<ApiResponse, AxiosError>> => {
   return await API.delete(`/post/${id}`);
+};
+
+/** 게시글 리스트 조회 api */
+export const getPostsApi = async ({
+  uuid,
+  page,
+}: GetPostsParams): Promise<AxiosResponse<ApiResponse<GetPostsResponseDto>, AxiosError>> => {
+  return await API.get('/post', {
+    params: { uuid, page },
+  });
 };
