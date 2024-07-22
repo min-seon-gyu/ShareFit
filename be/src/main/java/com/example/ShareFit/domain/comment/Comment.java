@@ -30,6 +30,7 @@ public class Comment extends JpaBaseEntity {
         this.content = content;
         this.member = member;
         this.post = post;
+        post.getComments().add(this);
     }
 
     public void update(String content){
