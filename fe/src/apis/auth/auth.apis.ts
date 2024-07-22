@@ -44,14 +44,14 @@ export const getKakaoInfoApi = async ({ accessToken }: GetKakaoInfoRequestDto) =
 export const loginApi = async ({
   uuid,
   nickname,
-  imagePath,
+  profilePath,
 }: LoginRequestDto): Promise<AxiosResponse<ApiResponse<LoginResponseDto>, AxiosError>> => {
   return await API.post(
     '/auth/login',
     {
       uuid,
       nickname,
-      imagePath,
+      profilePath,
     },
     {
       withCredentials: true,

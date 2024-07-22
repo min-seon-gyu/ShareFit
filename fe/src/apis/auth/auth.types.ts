@@ -9,7 +9,7 @@ export interface GetKakaoInfoRequestDto {
 export interface LoginRequestDto {
   uuid: string;
   nickname: string;
-  imagePath: string;
+  profilePath: string;
 }
 
 export interface LoginResponseDto {

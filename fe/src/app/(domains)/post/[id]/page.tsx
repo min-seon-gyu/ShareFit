@@ -9,19 +9,19 @@ type Props = {
   };
 };
 
-const fetchPostDetail = async (id: number) => {
+const fetchPostData = async (id: number) => {
   const response = await getPostApi(id);
 
   return response.data.data;
 };
 
 export default async function PostDetail({ params: { id } }: Props) {
-  const data = await fetchPostDetail(Number(id));
+  const { imagePath, content } = await fetchPostData(Number(id));
 
   return (
     <div>
       <div className={imageWrapStyle}>
-        <Image src={data.imagePath} layout="fill" alt="post-img" />
+        <Image src={imagePath} layout="fill" alt="post-img" />
       </div>
 
       <div className={profileStyle}>
@@ -34,7 +34,7 @@ export default async function PostDetail({ params: { id } }: Props) {
           padding: '0 12px',
         }}
         variant="b3">
-        {data.content}
+        {content}
       </Typography>
     </div>
   );

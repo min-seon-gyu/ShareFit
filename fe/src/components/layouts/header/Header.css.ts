@@ -6,7 +6,7 @@ import { recipe } from '@vanilla-extract/recipes';
 export const headerStyle = recipe({
   base: {
     width: '100%',
-    maxWidth: 540,
+    maxWidth: 480,
     height: 52,
     padding: '0 12px',
     margin: '0 auto',

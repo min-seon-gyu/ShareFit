@@ -1,7 +1,3 @@
-export default function Main() {
-  return (
-    <div>
-      <button />
-    </div>
-  );
+export default function Post() {
+  return <div>post list page</div>;
 }

@@ -41,9 +41,9 @@ const login = async (code: string): Promise<void> => {
   const { data: kakaoData } = await getKakaoInfoApi({ accessToken: access_token });
 
   const { id: uuid } = kakaoData;
-  const { nickname, profile_image_url: imagePath } = kakaoData.kakao_account.profile;
+  const { nickname, profile_image_url: profilePath } = kakaoData.kakao_account.profile;
 
-  const res = await loginApi({ uuid, nickname, imagePath });
+  const res = await loginApi({ uuid, nickname, profilePath });
 
   const { accessToken } = res.data.data;
 
