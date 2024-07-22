@@ -29,9 +29,6 @@ export default function Header() {
         <div className={iconButtonStyle} onClick={() => router.push(EDIT)}>
           <Icon name="plus" fill={mainColor} />
         </div>
-        {/* <div className={iconButtonStyle}>
-          <Icon name="user" stroke={mainColor} />
-        </div> */}
       </div>
     </div>
   );
