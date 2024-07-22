@@ -42,12 +42,4 @@ export interface GetPostsParams {
   page?: number;
 }
 
-export interface GetPostsResponseDto {
-  id: number;
-  content: string;
-  imagePath: string;
-  likes: number;
-  memberId: string;
-  nickname: string;
-  profilePath: string;
-}
+export type GetPostsResponseDto = GetPostResponseDto[];

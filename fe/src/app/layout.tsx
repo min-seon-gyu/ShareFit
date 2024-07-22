@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { containerStyle } from './layout.css';
 import './globals.css';
 import TanstackQueryProvider from '@/providers/TanstackQueryProvider';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'ShareFit',
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <TanstackQueryProvider>
-          <div className={containerStyle}>{children}</div>
+          <Suspense fallback={null}>
+            <div className={containerStyle}>{children}</div>
+          </Suspense>
         </TanstackQueryProvider>
       </body>
     </html>

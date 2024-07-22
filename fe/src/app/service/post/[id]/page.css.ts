@@ -9,8 +9,6 @@ export const imageWrapStyle = style({
 });
 
 export const profileStyle = style({
-  padding: 12,
-
   display: 'flex',
   alignItems: 'center',
   columnGap: 12,
@@ -21,4 +19,8 @@ export const profileImgStyle = style({
   height: 32,
   borderRadius: Radius.MAXIMUM,
   background: gray.gray3,
+});
+
+export const contentStyle = style({
+  padding: 12,
 });

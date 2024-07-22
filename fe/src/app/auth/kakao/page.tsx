@@ -47,5 +47,7 @@ const login = async (code: string): Promise<void> => {
 
   const { accessToken } = res.data.data;
 
-  setCookie('accessToken', accessToken);
+  setCookie('accessToken', accessToken, {
+    maxAge: 60 * 5,
+  });
 };
