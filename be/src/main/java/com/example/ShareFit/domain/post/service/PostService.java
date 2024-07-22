@@ -3,10 +3,7 @@ package com.example.ShareFit.domain.post.service;
 import com.example.ShareFit.domain.member.Member;
 import com.example.ShareFit.domain.member.repository.MemberRepository;
 import com.example.ShareFit.domain.post.Post;
-import com.example.ShareFit.domain.post.dto.PostCreateDto;
-import com.example.ShareFit.domain.post.dto.PostPageResponseDto;
-import com.example.ShareFit.domain.post.dto.PostResponseDto;
-import com.example.ShareFit.domain.post.dto.PostUpdateDto;
+import com.example.ShareFit.domain.post.dto.*;
 import com.example.ShareFit.domain.post.repository.PostRepository;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -40,18 +37,16 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponseDto find(Long id) {
+    public PostDetailResponseDto findDetail(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
-        return createPostResponseDto(post);
+        return createPostDetailResponseDto(post);
     }
 
     @Transactional(readOnly = true)
     public PostPageResponseDto findAll(Pageable pageable, String uuid) {
         Page<Post> result = null;
-
-        System.out.println("uuid = " + uuid);
 
         if(uuid == null || uuid.isBlank()){
             result = postRepository.findAll(pageable);
@@ -76,11 +71,27 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    private PostDetailResponseDto createPostDetailResponseDto(Post post){
+        PostDetailResponseDto postDetailResponseDto = PostDetailResponseDto.builder()
+                .id(post.getId())
+                .content(post.getContent())
+                .imagePath(post.getImagePath())
+                .likes(post.getLikes())
+                .memberId(post.getMember().getId())
+                .nickname(post.getMember().getNickname())
+                .profilePath(post.getMember().getProfilePath())
+                .build();
+
+        return postDetailResponseDto;
+    }
+
     private PostResponseDto createPostResponseDto(Post post){
         PostResponseDto postResponseDto = PostResponseDto.builder()
                 .id(post.getId())
                 .content(post.getContent())
                 .imagePath(post.getImagePath())
+                .likes(post.getLikes())
+                .memberId(post.getMember().getId())
                 .nickname(post.getMember().getNickname())
                 .profilePath(post.getMember().getProfilePath())
                 .build();
@@ -94,7 +105,7 @@ public class PostService {
                 .totalCount((int) posts.getTotalElements())
                 .totalPages(posts.getTotalPages() - 1)
                 .currentPage(posts.getNumber())
-                .result(convert)
+                .posts(convert)
                 .build();
 
         return postPageResponseDto;

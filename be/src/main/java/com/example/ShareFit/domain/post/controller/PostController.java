@@ -35,9 +35,9 @@ public class PostController implements PostControllerDocs {
     }
 
     @GetMapping("/post/{post_id}")
-    public ResponseEntity<PostResponseDto> find(@PathVariable("post_id") Long id){
-        PostResponseDto postResponseDto = postService.find(id);
-        return ResponseEntity.ok(postResponseDto);
+    public ResponseEntity<PostDetailResponseDto> findDetail(@PathVariable("post_id") Long id){
+        PostDetailResponseDto postDetailResponseDto = postService.findDetail(id);
+        return ResponseEntity.ok(postDetailResponseDto);
     }
 
     @GetMapping("/posts")

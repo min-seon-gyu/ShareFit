@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "게시글 조회 응답 DTO")
-public class PostResponseDto {
+@Schema(description = "게시글 상세 조회 응답 DTO")
+public class PostDetailResponseDto {
     @Schema(description = "게시글 ID")
     private Long id;
     @Schema(description = "게시글 내용")

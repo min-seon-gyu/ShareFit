@@ -20,6 +20,7 @@ public class Post extends JpaBaseEntity {
     private Long id;
     private String content;
     private String imagePath;
+    private Long likes = 0l;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -39,5 +40,13 @@ public class Post extends JpaBaseEntity {
         if(imagePath != null && !imagePath.isBlank()){
             this.imagePath = imagePath;
         }
+    }
+
+    public void addLikes(){
+        likes++;
+    }
+
+    public void cancelLikes(){
+        likes--;
     }
 }

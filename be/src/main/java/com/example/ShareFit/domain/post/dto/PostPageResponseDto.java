@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,5 +20,5 @@ public class PostPageResponseDto {
     @Schema(description = "현재 페이지")
     private Integer currentPage;
     @Schema(description = "게시글 리스트")
-    private List<PostResponseDto> result;
+    private List<PostResponseDto> posts;
 }

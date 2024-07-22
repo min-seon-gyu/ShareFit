@@ -23,7 +23,7 @@ public interface PostControllerDocs {
 
     @Operation(summary = "게시글 상세 조회", description = "게시글 ID 활용하여 게시글 상세 조회")
     @Parameter(name = "게시글 ID", description = "게시글 ID")
-    ResponseEntity<PostResponseDto> find(Long id);
+    ResponseEntity<PostDetailResponseDto> findDetail(Long id);
 
     @Operation(summary = "게시글 페이지 조회", description = "회원 UUID, 페이징 조건 활용하여 게시글 페이지 조회 " +
             "ex) /pages?uuid=value&page=value or /pages?page=value " +
