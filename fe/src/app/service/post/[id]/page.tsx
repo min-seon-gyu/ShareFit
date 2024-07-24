@@ -45,7 +45,7 @@ export default async function PostDetail({ params: { id } }: Props) {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.imageWrap}>
+        <div className={styles.profile}>
           <div className={styles.profileImg} />
           <Typography variant="sh3">닉네임</Typography>
         </div>

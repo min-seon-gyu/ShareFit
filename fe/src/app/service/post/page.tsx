@@ -1,6 +1,6 @@
 import { GetPostsResponseDto } from '@/apis/post';
 import { ApiResponse } from '@/apis/types';
-import Post from '@/components/blocks/Post';
+import { PostItem } from '@/components/blocks/PostItem';
 import { cookies } from 'next/headers';
 
 const fetchPostsData = async (): Promise<GetPostsResponseDto> => {
@@ -22,5 +22,5 @@ const fetchPostsData = async (): Promise<GetPostsResponseDto> => {
 export default async function PostPage() {
   const { posts } = await fetchPostsData();
 
-  return <div>{posts?.map((post) => <Post key={post.id} />)}</div>;
+  return <div>{posts?.map((post) => <PostItem key={post.id} data={post} />)}</div>;
 }
