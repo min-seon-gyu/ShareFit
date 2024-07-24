@@ -2,7 +2,7 @@ import { black } from '@/styles/Color';
 import { Radius } from '@/styles/Radius';
 import { style } from '@vanilla-extract/css';
 
-export const KakaoLoginButtonStyle = style({
+export const kakaoLoginButton = style({
   width: 183,
   height: 45,
   color: black,

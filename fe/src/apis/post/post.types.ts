@@ -27,19 +27,26 @@ export interface UpdatePostRequestDto {
   imagePath: string;
 }
 
-export interface GetPostResponseDto {
+export interface Post {
   id: number;
   content: string;
   imagePath: string;
   likes: number;
-  memberId: string;
+  memberId: number;
   nickname: string;
   profilePath: string;
 }
+
+export interface GetPostResponseDto extends Post {}
 
 export interface GetPostsParams {
   uuid?: string;
   page?: number;
 }
 
-export type GetPostsResponseDto = GetPostResponseDto[];
+export type GetPostsResponseDto = {
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  posts: GetPostResponseDto[];
+};

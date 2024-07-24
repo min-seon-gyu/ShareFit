@@ -2,7 +2,7 @@ import { black, gray } from '@/styles/Color';
 import { Radius } from '@/styles/Radius';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const containerStyle = recipe({
+export const container = recipe({
   base: {
     padding: 24,
     borderRadius: Radius.MEDIUM,

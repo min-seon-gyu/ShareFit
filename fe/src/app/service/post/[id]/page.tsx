@@ -1,6 +1,6 @@
 import { GetPostResponseDto } from '@/apis/post';
 import Image from 'next/image';
-import { contentStyle, imageWrapStyle, profileImgStyle, profileStyle } from './page.css';
+import * as styles from './page.css';
 import { Typography } from '@/components/atoms/Typography';
 import { cookies } from 'next/headers';
 import { ApiResponse } from '@/apis/types';
@@ -40,13 +40,13 @@ export default async function PostDetail({ params: { id } }: Props) {
 
   return (
     <div>
-      <div className={imageWrapStyle}>
+      <div className={styles.imageWrap}>
         <Image src={imagePath} layout="fill" alt="post-img" />
       </div>
 
-      <div className={contentStyle}>
-        <div className={profileStyle}>
-          <div className={profileImgStyle} />
+      <div className={styles.content}>
+        <div className={styles.profile}>
+          <div className={styles.profileImg} />
           <Typography variant="sh3">닉네임</Typography>
         </div>
 

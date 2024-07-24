@@ -1,7 +1,7 @@
 import { Radius } from '@/styles/Radius';
 import { style } from '@vanilla-extract/css';
 
-export const textareaStyle = style({
+export const textarea = style({
   width: '100%',
   resize: 'none',
   padding: '6px 8px',

@@ -1,7 +1,7 @@
 'use client';
 
 import { HTMLAttributes, useContext, useRef, useState } from 'react';
-import { containerStyle } from './FileUploader.css';
+import * as styles from './FileUploader.css';
 import Icon from '../icon/Icon';
 import { black, gray } from '@/styles/Color';
 import { Typography } from '../Typography';
@@ -50,7 +50,7 @@ export function FileUploader({ description, ...htmlAttributes }: Props) {
 
   return (
     <div
-      className={containerStyle({ isDragging })}
+      className={styles.container({ isDragging })}
       ref={componentRef}
       onClick={handleInputOpen}
       onDragEnter={handleDragEnter}

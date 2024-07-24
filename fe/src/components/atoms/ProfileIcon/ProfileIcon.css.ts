@@ -1,5 +1,4 @@
 import { Radius } from '@/styles/Radius';
-import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const imgWrap = recipe({
@@ -13,9 +12,13 @@ export const imgWrap = recipe({
 
   variants: {
     size: {
-      medium: {
+      small: {
         width: 32,
         height: 32,
+      },
+      medium: {
+        width: 40,
+        height: 40,
       },
       large: {
         width: 72,

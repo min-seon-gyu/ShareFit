@@ -1,7 +1,7 @@
 import { black } from '@/styles/Color';
 import { style } from '@vanilla-extract/css';
 
-export const pageStyle = style({
+export const page = style({
   flex: 1,
   background: black,
   color: 'white',

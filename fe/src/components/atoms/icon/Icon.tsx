@@ -1,14 +1,22 @@
+import { HTMLAttributes } from 'react';
 import { IconName, icons } from './icons';
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLOrSVGElement> {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   name: IconName;
   fill?: string;
   stroke?: string;
   style?: React.CSSProperties;
-};
+}
 
-export default function Icon({ size = 'medium', name, fill, stroke, style }: Props) {
+export default function Icon({
+  size = 'medium',
+  name,
+  fill,
+  stroke,
+  style,
+  ...htmlSvgAttributes
+}: Props) {
   const Component = icons[name] || null;
 
   const sizeMap = {
@@ -21,5 +29,5 @@ export default function Icon({ size = 'medium', name, fill, stroke, style }: Pro
   const width = sizeMap[size];
   const height = sizeMap[size];
 
-  return <Component style={{ width, height, fill, stroke, ...style }} />;
+  return <Component {...htmlSvgAttributes} style={{ width, height, fill, stroke, ...style }} />;
 }
