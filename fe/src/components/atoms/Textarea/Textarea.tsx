@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, Ref } from 'react';
-import { textareaStyle } from './Textarea.css';
+import * as styles from './Textarea.css';
 
 interface Props extends HTMLAttributes<HTMLTextAreaElement> {
   value: string;
@@ -15,7 +15,7 @@ const _Textarea = (
     <textarea
       value={value}
       placeholder={placeholder}
-      className={textareaStyle}
+      className={styles.textarea}
       ref={ref}
       {...htmlTextareaAttributes}
       style={{ height, ...htmlTextareaAttributes.style }}></textarea>

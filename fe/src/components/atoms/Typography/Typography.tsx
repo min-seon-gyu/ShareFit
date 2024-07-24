@@ -1,5 +1,5 @@
 import { black } from '@/styles/Color';
-import { typographyStyle } from './Typography.css';
+import * as styles from './Typography.css';
 import { ElementType, forwardRef, HTMLAttributes, Ref } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ const _Typography = (
 
   return (
     <Element
-      className={typographyStyle({ variant })}
+      className={styles.typography({ variant })}
       {...htmlAttributes}
       ref={ref}
       style={{ color, ...htmlAttributes.style }}>

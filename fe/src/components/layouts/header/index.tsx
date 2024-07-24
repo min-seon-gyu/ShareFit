@@ -1,7 +1,7 @@
 'use client';
 
 import { Typography } from '@/components/atoms/Typography';
-import { buttonWrapStyle, headerStyle, iconButtonStyle } from './Header.css';
+import * as styles from './Header.css';
 import { useCheckScrollToTop } from '@/hooks/interaction/useCheckScrollTop';
 import { black, white } from '@/styles/Color';
 import Icon from '@/components/atoms/icon/Icon';
@@ -20,10 +20,8 @@ export default function Header({ data }: Props) {
   const isScrollTop = useCheckScrollToTop();
   const mainColor = isScrollTop ? white : black;
 
-  console.log(data);
-
   return (
-    <div className={headerStyle({ isScrollTop })}>
+    <div className={styles.header({ isScrollTop })}>
       <Typography
         style={{ cursor: 'pointer' }}
         as="h1"
@@ -33,8 +31,8 @@ export default function Header({ data }: Props) {
         ShareFit
       </Typography>
 
-      <div className={buttonWrapStyle}>
-        <div className={iconButtonStyle} onClick={() => router.push(EDIT)}>
+      <div className={styles.buttonWrap}>
+        <div className={styles.iconButton} onClick={() => router.push(EDIT)}>
           <Icon name="plus" fill={mainColor} />
         </div>
         <ProfileIcon profilePath={data.profilePath ?? undefined} id={data.id} />

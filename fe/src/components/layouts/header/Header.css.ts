@@ -3,7 +3,7 @@ import { Shadow } from '@/styles/Shadow';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const headerStyle = recipe({
+export const header = recipe({
   base: {
     width: '100%',
     maxWidth: 480,
@@ -37,13 +37,13 @@ export const headerStyle = recipe({
   },
 });
 
-export const buttonWrapStyle = style({
+export const buttonWrap = style({
   display: 'flex',
   alignItems: 'center',
   gap: 12,
 });
 
-export const iconButtonStyle = style({
+export const iconButton = style({
   cursor: 'pointer',
   display: 'flex',
 });

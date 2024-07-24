@@ -1,6 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 
-export const typographyStyle = recipe({
+export const typography = recipe({
   base: {
     wordBreak: 'keep-all',
     whiteSpace: 'pre-line',

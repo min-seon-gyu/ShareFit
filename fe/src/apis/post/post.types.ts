@@ -42,4 +42,9 @@ export interface GetPostsParams {
   page?: number;
 }
 
-export type GetPostsResponseDto = GetPostResponseDto[];
+export type GetPostsResponseDto = {
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  posts: GetPostResponseDto[];
+};

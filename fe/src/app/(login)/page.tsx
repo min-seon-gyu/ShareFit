@@ -1,11 +1,11 @@
 import { Typography } from '@/components/atoms/Typography';
-import { pageStyle } from './login.css';
+import * as styles from './login.css';
 import { white } from '@/styles/Color';
 import { KakaoLoginButton } from './KakaoLoginButton';
 
 export default function Login() {
   return (
-    <div className={pageStyle}>
+    <div className={styles.page}>
       <Typography as="h1" color={white} variant="h2">
         ShareFit
       </Typography>

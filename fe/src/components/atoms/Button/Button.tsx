@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, Ref } from 'react';
-import { buttonStyle } from './Button.css';
+import * as styles from './Button.css';
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   text: string;
@@ -11,7 +11,7 @@ const _Button = (
   ref: Ref<HTMLButtonElement>,
 ) => {
   return (
-    <button className={buttonStyle({ fullWidth })} {...htmlButtonAttributes} ref={ref}>
+    <button className={styles.button({ fullWidth })} {...htmlButtonAttributes} ref={ref}>
       {text}
     </button>
   );

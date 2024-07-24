@@ -2,7 +2,7 @@ import { black, white } from '@/styles/Color';
 import { Radius } from '@/styles/Radius';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const buttonStyle = recipe({
+export const button = recipe({
   base: {
     padding: '10px 12px',
     fontSize: 14,

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/atoms/Button';
-import { imageWrapStyle, pageStyle } from './page.css';
+import * as styles from './page.css';
 import { Textarea } from '@/components/atoms/Textarea';
 import { useState } from 'react';
 import { FileUploader, FileUploaderProvider } from '@/components/atoms/FileUploader';
@@ -49,9 +49,9 @@ export default function Edit() {
   };
 
   return (
-    <div className={pageStyle}>
+    <div className={styles.page}>
       {imagePath ? (
-        <div className={imageWrapStyle}>
+        <div className={styles.imageWrap}>
           <Image src={imagePath} layout="fill" alt="preview-img" />
         </div>
       ) : (

@@ -1,16 +1,16 @@
 import { style } from '@vanilla-extract/css';
 
-export const headerStyle = style({
+export const header = style({
   padding: '24px 12px 8px',
 });
 
-export const profileStyle = style({
+export const profile = style({
   display: 'flex',
   alignItems: 'center',
   gap: 48,
 });
 
-export const itemStyle = style({
+export const item = style({
   textAlign: 'center',
 
   display: 'flex',

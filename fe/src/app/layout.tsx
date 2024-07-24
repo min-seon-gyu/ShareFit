@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { containerStyle } from './layout.css';
+import * as styles from './layout.css';
 import './globals.css';
 import TanstackQueryProvider from '@/providers/TanstackQueryProvider';
 import { Suspense } from 'react';
@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <TanstackQueryProvider>
           <Suspense fallback={null}>
-            <div className={containerStyle}>{children}</div>
+            <div className={styles.container}>{children}</div>
           </Suspense>
         </TanstackQueryProvider>
       </body>

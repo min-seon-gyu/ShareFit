@@ -1,5 +1,5 @@
 import React from 'react';
-import { pageStyle } from './layout.css';
+import * as styles from './layout.css';
 import Header from '@/components/layouts/header';
 import { cookies } from 'next/headers';
 import { ApiResponse } from '@/apis/types';
@@ -25,7 +25,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const data = await fetchMyInfoData();
 
   return (
-    <div className={pageStyle}>
+    <div className={styles.layout}>
       <Header data={data} />
 
       {children}
