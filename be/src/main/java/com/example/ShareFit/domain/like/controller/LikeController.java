@@ -1,7 +1,6 @@
 package com.example.ShareFit.domain.like.controller;
 
 import com.example.ShareFit.common.swagger.LikeControllerDocs;
-import com.example.ShareFit.domain.like.dto.LikeResponseDto;
 import com.example.ShareFit.domain.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +12,11 @@ public class LikeController implements LikeControllerDocs {
     private final LikeService likeService;
 
     @PostMapping("/like/{post_id}")
-    public ResponseEntity<LikeResponseDto> addLike(@RequestHeader("Authorization") String authorizationHeader,
-                                                   @PathVariable(value = "post_id") Long id) {
+    public ResponseEntity<Void> addLike(@RequestHeader("Authorization") String authorizationHeader,
+                                        @PathVariable(value = "post_id") Long id) {
         String accessToken = authorizationHeader.split("\\s")[1];
-        LikeResponseDto likeResponseDto = likeService.addLike(accessToken, id);
-        return ResponseEntity.ok(likeResponseDto);
+        likeService.addLike(accessToken, id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/like/{post_id}")

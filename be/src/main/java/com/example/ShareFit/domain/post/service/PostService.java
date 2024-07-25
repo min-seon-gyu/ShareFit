@@ -7,11 +7,9 @@ import com.example.ShareFit.domain.post.dto.*;
 import com.example.ShareFit.domain.post.repository.PostRepository;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,81 +31,40 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
-        return createPostResponseDto(post);
+        return new PostResponseDto(post, memberId);
     }
 
     @Transactional(readOnly = true)
-    public PostDetailResponseDto findDetail(Long id) {
-        Post post = postRepository.findById(id)
+    public PostDetailResponseDto findDetail(String token, Long id) {
+        Long memberId = jwtUtil.getId(token);
+        Post post = postRepository.findDetailById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
-        return createPostDetailResponseDto(post);
+        return new PostDetailResponseDto(post, memberId);
     }
 
     @Transactional(readOnly = true)
-    public PostPageResponseDto findAll(Pageable pageable, String uuid) {
-        Page<Post> result = null;
-
+    public PostPageResponseDto findAll(String token, Pageable pageable, String uuid) {
+        Long memberId = jwtUtil.getId(token);
         if(uuid == null || uuid.isBlank()){
-            result = postRepository.findAll(pageable);
+            return new PostPageResponseDto(postRepository.findAllJPA(pageable), memberId);
         }else{
-            result = postRepository.findAllByMemberUuid(uuid, pageable);
+            return new PostPageResponseDto(postRepository.findAllByMemberUuidJPA(uuid, pageable), memberId);
         }
-
-        return createPostPageResponseDto(result);
     }
 
     @Transactional
-    public PostResponseDto update(Long id, PostUpdateDto postUpdateDto) {
-        Post post = postRepository.findById(id)
+    public PostDetailResponseDto update(String token, PostUpdateDto postUpdateDto) {
+        Long memberId = jwtUtil.getId(token);
+        Post post = postRepository.findById(postUpdateDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
         post.update(postUpdateDto.getContent(), postUpdateDto.getImagePath());
-        return createPostResponseDto(post);
+        return new PostDetailResponseDto(post, memberId);
     }
 
     @Transactional
     public void delete(Long id) {
         postRepository.deleteById(id);
-    }
-
-    private PostDetailResponseDto createPostDetailResponseDto(Post post){
-        PostDetailResponseDto postDetailResponseDto = PostDetailResponseDto.builder()
-                .id(post.getId())
-                .content(post.getContent())
-                .imagePath(post.getImagePath())
-                .likes(post.getLikes())
-                .memberId(post.getMember().getId())
-                .nickname(post.getMember().getNickname())
-                .profilePath(post.getMember().getProfilePath())
-                .build();
-
-        return postDetailResponseDto;
-    }
-
-    private PostResponseDto createPostResponseDto(Post post){
-        PostResponseDto postResponseDto = PostResponseDto.builder()
-                .id(post.getId())
-                .content(post.getContent())
-                .imagePath(post.getImagePath())
-                .likes(post.getLikes())
-                .memberId(post.getMember().getId())
-                .nickname(post.getMember().getNickname())
-                .profilePath(post.getMember().getProfilePath())
-                .build();
-
-        return postResponseDto;
-    }
-
-    private PostPageResponseDto createPostPageResponseDto(Page<Post> posts){
-        List<PostResponseDto> convert = posts.stream().map(p -> createPostResponseDto(p)).toList();
-        PostPageResponseDto postPageResponseDto = PostPageResponseDto.builder()
-                .totalCount((int) posts.getTotalElements())
-                .totalPages(posts.getTotalPages() - 1)
-                .currentPage(posts.getNumber())
-                .posts(convert)
-                .build();
-
-        return postPageResponseDto;
     }
 }

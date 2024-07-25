@@ -1,7 +1,6 @@
 package com.example.ShareFit.domain.like.service;
 
 import com.example.ShareFit.domain.like.Like;
-import com.example.ShareFit.domain.like.dto.LikeResponseDto;
 import com.example.ShareFit.domain.like.repository.LikeRepository;
 import com.example.ShareFit.domain.member.Member;
 import com.example.ShareFit.domain.member.repository.MemberRepository;
@@ -21,7 +20,7 @@ public class LikeService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public LikeResponseDto addLike(String token, Long id) {
+    public void addLike(String token, Long id) {
         Post post = postRepository.findWithLockById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
@@ -35,8 +34,6 @@ public class LikeService {
 
         likeRepository.save(like);
         post.addLikes();
-
-        return createLikeResponseDto(like);
     }
 
     @Transactional
@@ -49,13 +46,5 @@ public class LikeService {
 
         likeRepository.delete(like);
         post.cancelLikes();
-    }
-
-    private LikeResponseDto createLikeResponseDto(Like like){
-        LikeResponseDto likeResponseDto = LikeResponseDto.builder()
-                .id(like.getId())
-                .build();
-
-        return likeResponseDto;
     }
 }

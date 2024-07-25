@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "게시글 수정 요청 DTO")
 public class PostUpdateDto {
+    @Schema(description = "게시글 ID")
+    private Long id;
     @Schema(description = "게시글 내용")
     private String content;
     @Schema(description = "게시글 이미지 경로")
