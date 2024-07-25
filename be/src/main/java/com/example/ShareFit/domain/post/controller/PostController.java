@@ -35,23 +35,28 @@ public class PostController implements PostControllerDocs {
     }
 
     @GetMapping("/post/{post_id}")
-    public ResponseEntity<PostDetailResponseDto> findDetail(@PathVariable("post_id") Long id){
-        PostDetailResponseDto postDetailResponseDto = postService.findDetail(id);
+    public ResponseEntity<PostDetailResponseDto> findDetail(@RequestHeader("Authorization") String authorizationHeader,
+                                                            @PathVariable("post_id") Long id){
+        String accessToken = authorizationHeader.split("\\s")[1];
+        PostDetailResponseDto postDetailResponseDto = postService.findDetail(accessToken, id);
         return ResponseEntity.ok(postDetailResponseDto);
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<PostPageResponseDto> findAll(@RequestParam(value = "uuid", required = false) String uuid,
+    public ResponseEntity<PostPageResponseDto> findAll(@RequestHeader("Authorization") String authorizationHeader,
+                                                       @RequestParam(value = "uuid", required = false) String uuid,
                                                        @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable){
-        PostPageResponseDto postPageResponseDto = postService.findAll(pageable, uuid);
+        String accessToken = authorizationHeader.split("\\s")[1];
+        PostPageResponseDto postPageResponseDto = postService.findAll(accessToken, pageable, uuid);
         return ResponseEntity.ok(postPageResponseDto);
     }
 
-    @PatchMapping("/post/{post_id}")
-    public ResponseEntity<PostResponseDto> update(@PathVariable("post_id") Long id,
-                                                  @RequestBody PostUpdateDto postUpdateDto){
-        PostResponseDto postResponseDto = postService.update(id, postUpdateDto);
-        return ResponseEntity.ok(postResponseDto);
+    @PatchMapping("/post")
+    public ResponseEntity<PostDetailResponseDto> update(@RequestHeader("Authorization") String authorizationHeader,
+                                                        @RequestBody PostUpdateDto postUpdateDto){
+        String accessToken = authorizationHeader.split("\\s")[1];
+        PostDetailResponseDto postDetailResponseDto = postService.update(accessToken, postUpdateDto);
+        return ResponseEntity.ok(postDetailResponseDto);
     }
 
     @DeleteMapping("/post/{post_id}")
