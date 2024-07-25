@@ -8,6 +8,7 @@ import { GetPostsResponseDto } from '@/apis/post';
 import Image from 'next/image';
 import Link from 'next/link';
 import { POST } from '@/constants/routes';
+import { MemberImageLoader } from '@/components/blocks/MemberImageLoader';
 
 type Props = {
   params: {
@@ -49,7 +50,7 @@ const fetchPostsData = async (uuid: string): Promise<GetPostsResponseDto> => {
 
 export default async function Member({ params: { id } }: Props) {
   const { nickname, profilePath, id: memberId, uuid } = await fetchMemberData(Number(id));
-  const { totalCount, posts } = await fetchPostsData(uuid);
+  const { totalCount, totalPages, posts } = await fetchPostsData(uuid);
 
   return (
     <div>
@@ -77,6 +78,8 @@ export default async function Member({ params: { id } }: Props) {
           </Link>
         ))}
       </div>
+
+      <MemberImageLoader totalPages={totalPages} uuid={uuid} />
     </div>
   );
 }
