@@ -51,7 +51,7 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDto update(CommentUpdateDto commentUpdateDto) {
-        Comment comment = commentRepository.findById(commentUpdateDto.getId())
+        Comment comment = commentRepository.findByCommentId(commentUpdateDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 댓글이 존재하지 않습니다."));
 
         comment.update(commentUpdateDto.getContent());

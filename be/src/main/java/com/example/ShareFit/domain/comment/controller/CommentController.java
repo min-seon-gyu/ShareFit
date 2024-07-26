@@ -1,6 +1,7 @@
 package com.example.ShareFit.domain.comment.controller;
 
 import com.example.ShareFit.common.swagger.CommentControllerDocs;
+import com.example.ShareFit.domain.comment.dto.CommentAllResponseDto;
 import com.example.ShareFit.domain.comment.dto.CommentCreateDto;
 import com.example.ShareFit.domain.comment.dto.CommentResponseDto;
 import com.example.ShareFit.domain.comment.dto.CommentUpdateDto;
@@ -20,6 +21,12 @@ public class CommentController implements CommentControllerDocs {
         String accessToken = authorizationHeader.split("\\s")[1];
         CommentResponseDto commentResponseDto = commentService.create(accessToken, commentCreateDto);
         return ResponseEntity.ok(commentResponseDto);
+    }
+
+    @GetMapping("/test/{comment_id}")
+    public ResponseEntity<CommentAllResponseDto> test(@PathVariable("comment_id") Long id) {
+        CommentAllResponseDto all = commentService.findAll(id);
+        return ResponseEntity.ok(all);
     }
 
     @PatchMapping("/comment")
