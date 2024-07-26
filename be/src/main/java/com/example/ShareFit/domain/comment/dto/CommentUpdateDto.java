@@ -10,16 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "댓글 응답 DTO")
-public class CommentResponseDto {
+@Schema(description = "댓글 업데이트 요청 DTO")
+public class CommentUpdateDto {
     @Schema(description = "댓글 ID")
     private Long id;
     @Schema(description = "댓글 내용")
     private String content;
-    @Schema(description = "댓글 작성 회원 ID")
-    private Long memberId;
-    @Schema(description = "댓글 작성 회원 닉네임")
-    private String nickname;
-    @Schema(description = "댓글 작성 회원 프로필 경로")
-    private String profilePath;
 }
