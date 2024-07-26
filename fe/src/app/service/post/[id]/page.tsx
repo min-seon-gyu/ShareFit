@@ -4,6 +4,7 @@ import * as styles from './page.css';
 import { Typography } from '@/components/atoms/Typography';
 import { cookies } from 'next/headers';
 import { ApiResponse } from '@/apis/types';
+import { PostItem } from '@/components/blocks/PostItem';
 
 type Props = {
   params: {
@@ -28,36 +29,11 @@ const fetchPostData = async (id: number): Promise<GetPostResponseDto> => {
 };
 
 export default async function PostDetail({ params: { id } }: Props) {
-  const {
-    id: postId,
-    imagePath,
-    content,
-    likes,
-    memberId,
-    nickname,
-    profilePath,
-  } = await fetchPostData(Number(id));
+  const data = await fetchPostData(Number(id));
 
   return (
     <div>
-      <div className={styles.imageWrap}>
-        <Image src={imagePath} layout="fill" alt="post-img" />
-      </div>
-
-      <div className={styles.content}>
-        <div className={styles.profile}>
-          <div className={styles.profileImg} />
-          <Typography variant="sh3">닉네임</Typography>
-        </div>
-
-        <Typography style={{ marginTop: 4 }} variant="b4">
-          <b>{likes}명</b>이 좋아합니다
-        </Typography>
-
-        <Typography style={{ marginTop: 8 }} variant="b3">
-          {content}
-        </Typography>
-      </div>
+      <PostItem data={data} />
     </div>
   );
 }

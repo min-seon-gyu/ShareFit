@@ -31,7 +31,8 @@ export interface Post {
   id: number;
   content: string;
   imagePath: string;
-  likes: number;
+  totalLikeCount: number;
+  isLike: boolean;
   memberId: number;
   nickname: string;
   profilePath: string;
