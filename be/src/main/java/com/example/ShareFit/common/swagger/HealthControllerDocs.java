@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 
 @Tag(name = "상태체크 API")
 public interface HealthControllerDocs {
-
     @Operation(summary = "상태 체크", description = "로드밸런서 상태 체크")
     ResponseEntity<Void> health();
 }

@@ -17,7 +17,7 @@ public class MemberService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public MemberResponseDto save(String uuid, String nickname, String imagePath){
+    public MemberResponseDto create(String uuid, String nickname, String imagePath){
         Member member = Member.builder()
                 .uuid(uuid)
                 .nickname(nickname)

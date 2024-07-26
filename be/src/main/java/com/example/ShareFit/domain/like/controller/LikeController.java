@@ -12,18 +12,18 @@ public class LikeController implements LikeControllerDocs {
     private final LikeService likeService;
 
     @PostMapping("/like/{post_id}")
-    public ResponseEntity<Void> addLike(@RequestHeader("Authorization") String authorizationHeader,
-                                        @PathVariable(value = "post_id") Long id) {
+    public ResponseEntity<Void> create(@RequestHeader("Authorization") String authorizationHeader,
+                                       @PathVariable(value = "post_id") Long id) {
         String accessToken = authorizationHeader.split("\\s")[1];
-        likeService.addLike(accessToken, id);
+        likeService.create(accessToken, id);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/like/{post_id}")
-    public ResponseEntity<Void> cancelLike(@RequestHeader("Authorization") String authorizationHeader,
-                                           @PathVariable(value = "post_id") Long id) {
+    public ResponseEntity<Void> delete(@RequestHeader("Authorization") String authorizationHeader,
+                                       @PathVariable(value = "post_id") Long id) {
         String accessToken = authorizationHeader.split("\\s")[1];
-        likeService.cancelLike(accessToken, id);
+        likeService.delete(accessToken, id);
         return ResponseEntity.noContent().build();
     }
 }

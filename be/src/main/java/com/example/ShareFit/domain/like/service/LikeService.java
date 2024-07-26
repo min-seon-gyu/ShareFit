@@ -20,7 +20,7 @@ public class LikeService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public void addLike(String token, Long id) {
+    public void create(String token, Long id) {
         Post post = postRepository.findWithLockById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
@@ -37,7 +37,7 @@ public class LikeService {
     }
 
     @Transactional
-    public void cancelLike(String token, Long id) {
+    public void delete(String token, Long id) {
         Post post = postRepository.findWithLockById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
