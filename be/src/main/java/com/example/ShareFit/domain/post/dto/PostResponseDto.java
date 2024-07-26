@@ -21,7 +21,7 @@ public class PostResponseDto {
     @Schema(description = "게시글 이미지 경로")
     private String imagePath;
     @Schema(description = "게시글 좋아요 수")
-    private Long totalLike;
+    private Long totalLikeCount;
     @Schema(description = "게시글 좋아요 유무")
     private Boolean isLike;
     @Schema(description = "게시글 작성 회원 ID")
@@ -30,15 +30,19 @@ public class PostResponseDto {
     private String nickname;
     @Schema(description = "게시글 작성 회원 프로필 경로")
     private String profilePath;
+    @Schema(description = "게시글 댓글 수")
+    private Integer commentCount;
+
     public PostResponseDto(Post post, Long userId){
         this.id = post.getId();
         this.content = post.getContent();
         this.imagePath = post.getImagePath();
-        this.totalLike = post.getTotalLike();
+        this.totalLikeCount = post.getTotalLikeCount();
         this.memberId = post.getMember().getId();
         this.nickname = post.getMember().getNickname();
         this.profilePath = post.getMember().getProfilePath();
         this.isLike = isLike(post, userId);
+        this.commentCount = post.getComments().size();
     }
 
     private boolean isLike(Post post, Long userId){

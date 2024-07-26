@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Schema(description = "게시글 페이지 조회 응답 DTO")
 public class PostPageResponseDto {
-    @Schema(description = "전체 게시글 수")
+    @Schema(description = "게시글 수")
     private Integer totalCount;
     @Schema(description = "전체 페이지 수")
     private Integer totalPages;
@@ -23,6 +23,7 @@ public class PostPageResponseDto {
     private Integer currentPage;
     @Schema(description = "게시글 리스트")
     private List<PostResponseDto> posts;
+
     public PostPageResponseDto(Page<Post> posts, Long memberId){
         this.totalCount = (int) posts.getTotalElements();
         this.totalPages = posts.getTotalPages() - 1;

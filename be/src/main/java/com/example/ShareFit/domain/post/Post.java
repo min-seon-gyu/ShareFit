@@ -24,7 +24,7 @@ public class Post extends JpaBaseEntity {
     private Long id;
     private String content;
     private String imagePath;
-    private Long totalLike = 0l;
+    private Long totalLikeCount = 0l;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -51,10 +51,10 @@ public class Post extends JpaBaseEntity {
     }
 
     public void addLikes(){
-        totalLike++;
+        totalLikeCount++;
     }
 
     public void cancelLikes(){
-        totalLike--;
+        totalLikeCount--;
     }
 }

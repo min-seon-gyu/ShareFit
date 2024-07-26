@@ -23,12 +23,6 @@ public class CommentController implements CommentControllerDocs {
         return ResponseEntity.ok(commentResponseDto);
     }
 
-    @GetMapping("/test/{comment_id}")
-    public ResponseEntity<CommentAllResponseDto> test(@PathVariable("comment_id") Long id) {
-        CommentAllResponseDto all = commentService.findAll(id);
-        return ResponseEntity.ok(all);
-    }
-
     @PatchMapping("/comment")
     public ResponseEntity<CommentResponseDto> update(@RequestBody CommentUpdateDto commentUpdateDto) {
         CommentResponseDto commentResponseDto = commentService.update(commentUpdateDto);

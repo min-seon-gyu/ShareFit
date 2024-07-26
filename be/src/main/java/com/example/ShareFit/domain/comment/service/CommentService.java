@@ -41,12 +41,12 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return createCommentResponseDto(comment);
+        return new CommentResponseDto(comment);
     }
 
     public CommentAllResponseDto findAll(Long id) {
         List<Comment> comments = commentRepository.findByPostId(id);
-        return createCommentAllResponseDto(comments);
+        return new CommentAllResponseDto(comments);
     }
 
     @Transactional
@@ -55,28 +55,11 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 댓글이 존재하지 않습니다."));
 
         comment.update(commentUpdateDto.getContent());
-        return createCommentResponseDto(comment);
+        return new CommentResponseDto(comment);
     }
 
     @Transactional
     public void delete(Long id) {
         commentRepository.deleteById(id);
-    }
-
-    private CommentResponseDto createCommentResponseDto(Comment comment){
-        return CommentResponseDto.builder()
-                .id(comment.getId())
-                .content(comment.getContent())
-                .memberId(comment.getMember().getId())
-                .nickname(comment.getMember().getNickname())
-                .profilePath(comment.getMember().getProfilePath())
-                .build();
-    }
-
-    private CommentAllResponseDto createCommentAllResponseDto(List<Comment> comments) {
-        return CommentAllResponseDto.builder()
-                .totalCount(comments.size())
-                .comments(comments.stream().map(c -> createCommentResponseDto(c)).toList())
-                .build();
     }
 }
