@@ -30,7 +30,7 @@ public class AuthService {
         MemberResponseDto memberResponseDto = memberService.findByUuid(authRequestDto.getUuid());
 
         if(memberResponseDto == null){
-            memberResponseDto = memberService.save(authRequestDto.getUuid(), authRequestDto.getNickname(), authRequestDto.getProfilePath());
+            memberResponseDto = memberService.create(authRequestDto.getUuid(), authRequestDto.getNickname(), authRequestDto.getProfilePath());
         }
 
         String accessToken = jwtUtil.createJwt("access", memberResponseDto, accessTokenExpiredMs);
@@ -43,7 +43,7 @@ public class AuthService {
                 .refreshToken(refreshToken)
                 .build();
 
-        refreshTokenRepository.save(token);
+        refreshTokenRepository.create(token);
 
         AuthResponseDto authResponseDto = AuthResponseDto.builder()
                 .accessToken(accessToken)
@@ -101,7 +101,7 @@ public class AuthService {
                 .refreshToken(refreshToken)
                 .build();
 
-        refreshTokenRepository.save(token);
+        refreshTokenRepository.create(token);
 
         AuthResponseDto authResponseDto = AuthResponseDto.builder()
                 .accessToken(accessToken)

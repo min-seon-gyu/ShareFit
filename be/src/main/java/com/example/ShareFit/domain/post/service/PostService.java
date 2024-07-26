@@ -19,7 +19,7 @@ public class PostService {
     private final JwtUtil jwtUtil;
 
     @Transactional
-    public PostResponseDto save(String token, PostCreateDto postCreateDto) {
+    public PostResponseDto create(String token, PostCreateDto postCreateDto) {
         Long memberId = jwtUtil.getId(token);
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));

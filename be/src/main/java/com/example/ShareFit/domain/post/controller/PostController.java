@@ -27,10 +27,10 @@ public class PostController implements PostControllerDocs {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<PostResponseDto> save(@RequestHeader("Authorization") String authorizationHeader,
-                                                @RequestBody PostCreateDto postCreateDto){
+    public ResponseEntity<PostResponseDto> create(@RequestHeader("Authorization") String authorizationHeader,
+                                                  @RequestBody PostCreateDto postCreateDto){
         String accessToken = authorizationHeader.split("\\s")[1];
-        PostResponseDto postResponseDto = postService.save(accessToken, postCreateDto);
+        PostResponseDto postResponseDto = postService.create(accessToken, postCreateDto);
         return ResponseEntity.ok(postResponseDto);
     }
 

@@ -15,7 +15,7 @@ public class RefreshTokenRepository {
     @Value("${spring.jwt.refreshToken_expiration_time}")
     private Long refreshTokenExpiredMs;
 
-    public void save(RefreshToken refreshToken){
+    public void create(RefreshToken refreshToken){
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(refreshToken.getRefreshToken(), refreshToken.getUuid(), refreshTokenExpiredMs, TimeUnit.MILLISECONDS);
     }

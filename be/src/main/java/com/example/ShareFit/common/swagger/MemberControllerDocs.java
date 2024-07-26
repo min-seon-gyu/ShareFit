@@ -9,14 +9,12 @@ import org.springframework.http.ResponseEntity;
 
 @Tag(name = "회원 API")
 public interface MemberControllerDocs {
-    @Operation(summary = "회원 조회 (토큰)", description = "Access Token 활용하여 회원 조회")
+    @Operation(summary = "회원 조회 토큰 방식", description = "Access Token 활용하여 회원 조회")
     @Parameter(name = "Access Token", description = "Authorization 헤더 Access Token")
     ResponseEntity<MemberResponseDto> find(String authorizationHeader);
-
-    @Operation(summary = "회원 조회 (ID)", description = "회원 ID 활용하여 회원 조회")
+    @Operation(summary = "회원 조회 ID 방식", description = "회원 ID 활용하여 회원 조회")
     @Parameter(name = "회원 ID", description = "회원 ID")
     ResponseEntity<MemberResponseDto> findById(Long id);
-
     @Operation(summary = "회원 수정", description = "Access Token, MemberUpdateDto 활용하여 회원 수정")
     @Parameter(name = "Access Token", description = "Authorization 헤더 Access Token")
     @Parameter(name = "MemberUpdateDto", description = "회원 수정 내용")
