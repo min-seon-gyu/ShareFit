@@ -22,12 +22,15 @@ const fetchPostsData = async (): Promise<GetPostsResponseDto> => {
 };
 
 export default async function PostPage() {
-  const { posts, totalPages } = await fetchPostsData();
+  const data = await fetchPostsData();
+  const { posts, totalPages } = data ?? {};
 
   return (
     <div>
       {posts?.map((post) => <PostItem key={post.id} data={post} />)}
-      <PostItemLoader totalPages={totalPages} />
+
+      {/* infinite Scroll Loader */}
+      {totalPages > 1 && <PostItemLoader totalPages={totalPages} />}
     </div>
   );
 }
