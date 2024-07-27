@@ -8,9 +8,13 @@
 name: Java CD with Gradle
 
 on:
-  push:
+  pull_request:
     branches:
       - main
+    types:
+      - closed
+    paths:
+      - 'be/**'
       
 env:
   AWS_S3_BUCKET: sharefit-bucket
@@ -25,11 +29,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Create application.yml
         run: |
           mkdir -p be/src/main/resources
           echo "${{ secrets.APPLICATION_YML }}" > be/src/main/resources/application.yml         
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x be/gradlew
+        
+      - name: Build with Gradle
+        run: cd be && ./gradlew build
+        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -45,7 +61,7 @@ jobs:
             --ignore-hidden-files \
             --s3-location s3://$AWS_S3_BUCKET/build/$GITHUB_SHA.zip \
             --source .
-
+          
       - name: Deploy to AWS EC2 from S3
         run: |
           aws deploy create-deployment \
@@ -53,4 +69,3 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} \
             --s3-location bucket=$AWS_S3_BUCKET,key=build/$GITHUB_SHA.zip,bundleType=zip
-
