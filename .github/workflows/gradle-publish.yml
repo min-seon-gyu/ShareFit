@@ -8,13 +8,9 @@
 name: Java CD with Gradle
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      - closed
-    paths:
-      - 'be/**'
       
 env:
   AWS_S3_BUCKET: sharefit-bucket
