@@ -15,10 +15,6 @@ permissions:
     group: ubuntu
 
 hooks:
-  build:
-    - location: scripts/build.sh
-      timeout: 300
-      runas: ubuntu
   AfterInstall:
     - location: scripts/stop.sh
       timeout: 60
