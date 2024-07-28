@@ -1,19 +1,28 @@
 'use client';
 
-import { Post } from '@/apis/post';
 import * as styles from './PostItem.css';
 import { ProfileIcon } from '@/components/atoms/ProfileIcon';
 import { Typography } from '@/components/atoms/Typography';
 import Image from 'next/image';
 import Icon from '@/components/atoms/icon/Icon';
-import { black, red } from '@/styles/Color';
+import { black, gray, red } from '@/styles/Color';
 import Link from 'next/link';
 import { MEMBER, POST } from '@/constants/routes';
 import { useAddLike, useCacncelLike } from '@/apis/like';
 import { useState } from 'react';
+import { GetPostResponseDto, GetPostsResponseDto } from '@/apis/post';
+import Comments from './Comments';
+
+// 리스트 아이템, 상세 아이템
+type Post = GetPostsResponseDto['posts'][0] | GetPostResponseDto;
 
 type Props = {
   data: Post;
+};
+
+// type guard
+const isPostDetail = (value: Post): value is GetPostResponseDto => {
+  return 'comments' in value;
 };
 
 export function PostItem({ data }: Props) {
@@ -64,9 +73,22 @@ export function PostItem({ data }: Props) {
           </Link>
         </div>
         <Typography variant="sh4">좋아요 {totalLikeCount}개</Typography>
+
+        {/* only List */}
+        {!isPostDetail(post) && (
+          <Link href={POST_DETAIL}>
+            <Typography color={gray.gray6}>댓글 {post.commentCount}개 모두 보기</Typography>
+          </Link>
+        )}
+        {/* only List end */}
+
         <Typography variant="b3">
           <b>{nickname}</b> {content}
         </Typography>
+
+        {/* only Detail */}
+        {isPostDetail(post) && <Comments id={id} data={post} />}
+        {/* only Detail end */}
       </div>
     </div>
   );

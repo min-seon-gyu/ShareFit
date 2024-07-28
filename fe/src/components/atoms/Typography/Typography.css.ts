@@ -2,7 +2,7 @@ import { recipe } from '@vanilla-extract/recipes';
 
 export const typography = recipe({
   base: {
-    wordBreak: 'keep-all',
+    wordBreak: 'break-all',
     whiteSpace: 'pre-line',
     letterSpacing: '-2%',
   },
