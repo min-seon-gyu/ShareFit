@@ -27,7 +27,7 @@ export interface UpdatePostRequestDto {
   imagePath: string;
 }
 
-export interface Post {
+export interface GetPostResponseDto {
   id: number;
   content: string;
   imagePath: string;
@@ -36,9 +36,17 @@ export interface Post {
   memberId: number;
   nickname: string;
   profilePath: string;
+  comments: {
+    totalCount: number;
+    comments: {
+      id: number;
+      content: string;
+      memberId: number;
+      nickname: string;
+      profilePath: string;
+    }[];
+  };
 }
-
-export interface GetPostResponseDto extends Post {}
 
 export interface GetPostsParams {
   uuid?: string;
@@ -49,5 +57,15 @@ export type GetPostsResponseDto = {
   totalCount: number;
   totalPages: number;
   currentPage: number;
-  posts: GetPostResponseDto[];
+  posts: {
+    id: number;
+    content: string;
+    imagePath: string;
+    totalLikeCount: number;
+    isLike: boolean;
+    memberId: number;
+    nickname: string;
+    profilePath: string;
+    commentCount: number;
+  }[];
 };

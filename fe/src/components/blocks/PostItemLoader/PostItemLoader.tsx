@@ -1,6 +1,6 @@
 'use client';
 
-import { GetPostsResponseDto, Post } from '@/apis/post';
+import { GetPostsResponseDto } from '@/apis/post';
 import { useInfiniteScroll } from '@/hooks/interaction/useInfiniteScroll';
 import { useRef, useState } from 'react';
 import { PostItem } from '../PostItem';
@@ -9,6 +9,8 @@ import { ApiResponse } from '@/apis/types';
 interface Props {
   totalPages: number;
 }
+
+type Post = GetPostsResponseDto['posts'][0];
 
 export function PostItemLoader({ totalPages }: Props) {
   const observerRef = useRef<HTMLDivElement>(null);

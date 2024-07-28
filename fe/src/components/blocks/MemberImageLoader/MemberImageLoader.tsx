@@ -1,6 +1,6 @@
 'use client';
 
-import { GetPostsResponseDto, Post } from '@/apis/post';
+import { GetPostsResponseDto } from '@/apis/post';
 import { ApiResponse } from '@/apis/types';
 import { useInfiniteScroll } from '@/hooks/interaction/useInfiniteScroll';
 import { useRef, useState } from 'react';
@@ -13,6 +13,8 @@ interface Props {
   totalPages: number;
   uuid: string;
 }
+
+type Post = GetPostsResponseDto['posts'][0];
 
 export function MemberImageLoader({ totalPages, uuid }: Props) {
   const observerRef = useRef<HTMLDivElement>(null);
