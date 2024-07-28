@@ -9,7 +9,7 @@ import { black, gray, red } from '@/styles/Color';
 import Link from 'next/link';
 import { MEMBER, POST } from '@/constants/routes';
 import { useAddLike, useCacncelLike } from '@/apis/like';
-import { useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { GetPostResponseDto, GetPostsResponseDto } from '@/apis/post';
 import Comments from './Comments';
 
@@ -24,6 +24,11 @@ type Props = {
 const isPostDetail = (value: Post): value is GetPostResponseDto => {
   return 'comments' in value;
 };
+
+export const PostItemContext = createContext<{
+  post: GetPostResponseDto;
+  setPost: Dispatch<SetStateAction<Post>>;
+} | null>(null);
 
 export function PostItem({ data }: Props) {
   const [post, setPost] = useState<Post>(data);
@@ -87,7 +92,11 @@ export function PostItem({ data }: Props) {
         </Typography>
 
         {/* only Detail */}
-        {isPostDetail(post) && <Comments id={id} data={post} />}
+        {isPostDetail(post) && (
+          <PostItemContext.Provider value={{ post, setPost }}>
+            <Comments />
+          </PostItemContext.Provider>
+        )}
         {/* only Detail end */}
       </div>
     </div>
