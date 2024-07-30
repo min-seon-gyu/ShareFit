@@ -36,3 +36,4 @@
 ### 캐시를 활용한 조회 성능 향상
 ### 실행계획 분석 후 쿼리 최적화
 ### Github Actions, AWS S3, AWS Codedeploy를 활용하여 자동 배포 파이프라인 구현
+### HTTPS 적용
