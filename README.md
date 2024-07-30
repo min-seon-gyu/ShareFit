@@ -30,11 +30,9 @@
     - 게시글에 대한 좋아요 추가/삭제를 할 수 있습니다.
  
 ## 기술적 개선 및 고려
-    - **Java, Spring Boot를 이용한 RESTful API 설계**
-    - **Spring Data JPA, QueryDSL 적용**
-    - **Spring Security, JWT를 활용한 토큰 방식 인증/인가 적용**
-    - **Github Actions, AWS S3, AWS Codedeploy를 활용하여 자동 배포 파이프라인 구현**
-    - **캐시를 활용한 조회 성능 향상**
-    - **실행계획 분석 후 쿼리 최적화**
 
- 
+### Spring Data JPA, QueryDSL 적용
+### Spring Security, JWT를 활용한 토큰 방식 인증/인가 적용
+### 캐시를 활용한 조회 성능 향상
+### 실행계획 분석 후 쿼리 최적화
+### Github Actions, AWS S3, AWS Codedeploy를 활용하여 자동 배포 파이프라인 구현
