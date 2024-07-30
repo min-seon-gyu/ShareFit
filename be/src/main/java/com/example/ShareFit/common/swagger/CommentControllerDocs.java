@@ -17,7 +17,8 @@ public interface CommentControllerDocs {
     @Operation(summary = "댓글 업데이트", description = "CommentUpdateDto 활용하여 댓글 업데이트")
     @Parameter(name = "CommentUpdateDto", description = "댓글 수정 내용")
     ResponseEntity<CommentResponseDto> update(CommentUpdateDto commentUpdateDto);
-    @Operation(summary = "댓글 삭제", description = "댓글 ID 활용하여 게시글 삭제")
+    @Operation(summary = "댓글 삭제", description = "게시글 ID, 댓글 ID 활용하여 게시글 삭제")
+    @Parameter(name = "게시글 ID", description = "게시글 ID")
     @Parameter(name = "댓글 ID", description = "댓글 ID")
-    ResponseEntity<Void> delete(Long id);
+    ResponseEntity<Void> delete(Long postId, Long commentId);
 }

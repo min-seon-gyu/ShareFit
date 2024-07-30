@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class CommentUpdateDto {
     @Schema(description = "댓글 ID")
     private Long id;
+    @Schema(description = "게시글 ID")
+    private Long postId;
     @Schema(description = "댓글 내용")
     private String content;
 }

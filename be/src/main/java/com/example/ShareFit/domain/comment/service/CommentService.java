@@ -1,7 +1,6 @@
 package com.example.ShareFit.domain.comment.service;
 
 import com.example.ShareFit.domain.comment.Comment;
-import com.example.ShareFit.domain.comment.dto.CommentAllResponseDto;
 import com.example.ShareFit.domain.comment.dto.CommentCreateDto;
 import com.example.ShareFit.domain.comment.dto.CommentResponseDto;
 import com.example.ShareFit.domain.comment.dto.CommentUpdateDto;
@@ -12,9 +11,9 @@ import com.example.ShareFit.domain.post.Post;
 import com.example.ShareFit.domain.post.repository.PostRepository;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +24,7 @@ public class CommentService {
     private final JwtUtil jwtUtil;
 
     @Transactional
+    @CacheEvict(value = "PostDetailResponseDto", key = "#commentCreateDto.getId()", cacheManager = "contentCacheManager")
     public CommentResponseDto create(String token, CommentCreateDto commentCreateDto) {
         Long memberId = jwtUtil.getId(token);
         Member member = memberRepository.findById(memberId)
@@ -44,12 +44,8 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
-    public CommentAllResponseDto findAll(Long id) {
-        List<Comment> comments = commentRepository.findByPostId(id);
-        return new CommentAllResponseDto(comments);
-    }
-
     @Transactional
+    @CacheEvict(value = "PostDetailResponseDto", key = "#commentUpdateDto.getPostId()", cacheManager = "contentCacheManager")
     public CommentResponseDto update(CommentUpdateDto commentUpdateDto) {
         Comment comment = commentRepository.findByCommentId(commentUpdateDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 댓글이 존재하지 않습니다."));
@@ -59,7 +55,8 @@ public class CommentService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        commentRepository.deleteById(id);
+    @CacheEvict(value = "PostDetailResponseDto", key = "#postId", cacheManager = "contentCacheManager")
+    public void delete(Long postId, Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 }
