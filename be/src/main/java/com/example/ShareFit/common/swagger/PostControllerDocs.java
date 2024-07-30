@@ -18,10 +18,13 @@ public interface PostControllerDocs {
     @Parameter(name = "Access Token", description = "Authorization 헤더 Access Token")
     @Parameter(name = "PostCreateDto", description = "게시글 등록 내용")
     ResponseEntity<PostResponseDto> create(String authorizationHeader, PostCreateDto postCreateDto);
+    @Operation(summary = "인기 게시글 조회", description = "Access Token 활용하여 인기 게시글 조회")
+    @Parameter(name = "Access Token", description = "Authorization 헤더 Access Token")
+    ResponseEntity<PostPopularResponseDto> findPopular(String authorizationHeader);
     @Operation(summary = "게시글 상세 조회", description = "Access Token, 게시글 ID 활용하여 게시글 상세 조회")
     @Parameter(name = "Access Token", description = "Authorization 헤더 Access Token")
     @Parameter(name = "게시글 ID", description = "게시글 ID")
-    ResponseEntity<PostDetailResponseDto> findDetail(String authorizationHeader, Long id);
+    ResponseEntity<PostDetailResponseDto> find(String authorizationHeader, Long id);
     @Operation(summary = "게시글 페이지 조회", description = "Access Token, 회원 UUID, 페이징 조건 활용하여 게시글 페이지 조회 " +
             "ex) /pages?uuid=value&page=value or /pages?page=value " +
             "(uuid 필터링 시 uuid 먼저, page 0부터 시작)")

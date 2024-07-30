@@ -24,7 +24,7 @@ public class Post extends JpaBaseEntity {
     private Long id;
     private String content;
     private String imagePath;
-    private Long totalLikeCount = 0l;
+    private Long likeCount = 0l;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -32,6 +32,8 @@ public class Post extends JpaBaseEntity {
     private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
+    @Version
+    private Long version;
 
     @Builder
     public Post(String content, String imagePath, Member member) {
@@ -50,11 +52,11 @@ public class Post extends JpaBaseEntity {
         }
     }
 
-    public void addLikes(){
-        totalLikeCount++;
+    public void plusLike(){
+        likeCount++;
     }
 
-    public void cancelLikes(){
-        totalLikeCount--;
+    public void minusLike(){
+        likeCount--;
     }
 }
