@@ -34,11 +34,18 @@ public class PostController implements PostControllerDocs {
         return ResponseEntity.ok(postResponseDto);
     }
 
-    @GetMapping("/post/{post_id}")
-    public ResponseEntity<PostDetailResponseDto> findDetail(@RequestHeader("Authorization") String authorizationHeader,
-                                                            @PathVariable("post_id") Long id){
+    @GetMapping("/posts/popular")
+    public ResponseEntity<PostPopularResponseDto> findPopular(@RequestHeader("Authorization") String authorizationHeader){
         String accessToken = authorizationHeader.split("\\s")[1];
-        PostDetailResponseDto postDetailResponseDto = postService.findDetail(accessToken, id);
+        PostPopularResponseDto postPopularResponseDto = postService.findPopular(accessToken);
+        return ResponseEntity.ok(postPopularResponseDto);
+    }
+
+    @GetMapping("/post/{post_id}")
+    public ResponseEntity<PostDetailResponseDto> find(@RequestHeader("Authorization") String authorizationHeader,
+                                                      @PathVariable("post_id") Long id){
+        String accessToken = authorizationHeader.split("\\s")[1];
+        PostDetailResponseDto postDetailResponseDto = postService.find(accessToken, id);
         return ResponseEntity.ok(postDetailResponseDto);
     }
 

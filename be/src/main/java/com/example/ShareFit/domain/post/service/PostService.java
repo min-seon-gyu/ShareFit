@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +38,20 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDetailResponseDto findDetail(String token, Long id) {
+    public PostPopularResponseDto findPopular(String token) {
         Long memberId = jwtUtil.getId(token);
-        Post post = postRepository.findDetailById(id)
+        List<Post> posts = postRepository.findPopularPosts().stream()
+                .sorted(Comparator.comparingLong(this::calculateScore).reversed())
+                .limit(3)
+                .toList();
+
+        return new PostPopularResponseDto(posts, memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public PostDetailResponseDto find(String token, Long id) {
+        Long memberId = jwtUtil.getId(token);
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 존재하지 않습니다."));
 
         return new PostDetailResponseDto(post, memberId);
@@ -66,5 +80,13 @@ public class PostService {
     @Transactional
     public void delete(Long id) {
         postRepository.deleteById(id);
+    }
+
+    private int calculateScore(Post post) {
+        // 점수 계산: 댓글 수 + (좋아요 수 / 10) - 생성 시간 기준 가중치
+        int likeCountScore = Long.valueOf(post.getLikeCount()).intValue() / 10;
+        int commentCountScore = post.getComments().size();
+        int createDateScore = (int) (LocalDateTime.now().toLocalDate().toEpochDay() - post.getCreatedDate().toLocalDate().toEpochDay() * 2);
+        return likeCountScore + commentCountScore - createDateScore;
     }
 }
