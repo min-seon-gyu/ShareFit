@@ -8,6 +8,7 @@ import com.example.ShareFit.domain.post.Post;
 import com.example.ShareFit.domain.post.repository.PostRepository;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class LikeService {
     private static final int MAX_RETRIES = 3;
 
     @Transactional
+    @CacheEvict(value = "PostDetailResponseDto", key = "#id", cacheManager = "contentCacheManager")
     public void create(String token, Long id) {
         int retries = 0;
         while (retries < MAX_RETRIES) {
@@ -31,6 +33,9 @@ public class LikeService {
 
                 Member member = memberRepository.findById(jwtUtil.getId(token))
                         .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
+
+                likeRepository.findByMemberIdAndPostId(jwtUtil.getId(token), id)
+                        .ifPresent(l -> { throw new IllegalArgumentException("해당하는 좋아요가 이미 존재합니다."); });
 
                 Like like = Like.builder()
                         .member(member)
@@ -55,6 +60,7 @@ public class LikeService {
     }
 
     @Transactional
+    @CacheEvict(value = "PostDetailResponseDto", key = "#id", cacheManager = "contentCacheManager")
     public void delete(String token, Long id) {
         int retries = 0;
         while (retries < MAX_RETRIES) {

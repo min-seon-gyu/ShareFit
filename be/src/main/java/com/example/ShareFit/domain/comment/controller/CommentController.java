@@ -29,9 +29,10 @@ public class CommentController implements CommentControllerDocs {
         return ResponseEntity.ok(commentResponseDto);
     }
 
-    @DeleteMapping("/comment/{comment_id}")
-    public ResponseEntity<Void> delete(@PathVariable("comment_id") Long id) {
-        commentService.delete(id);
+    @DeleteMapping("/comment/{post_id}/{comment_id}")
+    public ResponseEntity<Void> delete(@PathVariable("post_id") Long postId,
+                                       @PathVariable("comment_id") Long commentId) {
+        commentService.delete(postId, commentId);
         return ResponseEntity.noContent().build();
     }
 }

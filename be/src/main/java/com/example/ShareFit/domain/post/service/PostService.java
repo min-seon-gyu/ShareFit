@@ -7,6 +7,9 @@ import com.example.ShareFit.domain.post.dto.*;
 import com.example.ShareFit.domain.post.repository.PostRepository;
 import com.example.ShareFit.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +52,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "PostDetailResponseDto", key = "#id", cacheManager = "contentCacheManager")
     public PostDetailResponseDto find(String token, Long id) {
         Long memberId = jwtUtil.getId(token);
         Post post = postRepository.findById(id)
@@ -68,6 +72,7 @@ public class PostService {
     }
 
     @Transactional
+    @CachePut(value = "PostDetailResponseDto", key = "#postUpdateDto.getId()", cacheManager = "contentCacheManager")
     public PostDetailResponseDto update(String token, PostUpdateDto postUpdateDto) {
         Long memberId = jwtUtil.getId(token);
         Post post = postRepository.findById(postUpdateDto.getId())
@@ -78,12 +83,12 @@ public class PostService {
     }
 
     @Transactional
+    @CacheEvict(value = "PostDetailResponseDto", key = "#id", cacheManager = "contentCacheManager")
     public void delete(Long id) {
         postRepository.deleteById(id);
     }
 
     private int calculateScore(Post post) {
-        // 점수 계산: 댓글 수 + (좋아요 수 / 10) - 생성 시간 기준 가중치
         int likeCountScore = Long.valueOf(post.getLikeCount()).intValue() / 10;
         int commentCountScore = post.getComments().size();
         int createDateScore = (int) (LocalDateTime.now().toLocalDate().toEpochDay() - post.getCreatedDate().toLocalDate().toEpochDay() * 2);
