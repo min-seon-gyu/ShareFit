@@ -19,7 +19,8 @@
 ## 프로젝트 설명
 
 #### 아키텍처 설계
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ba1a3245-2057-41c0-a15f-8e0ff9e04e75/bdf99e10-e610-432f-b547-4d57871f06f2/Untitled.png)
+![캡처1](https://github.com/user-attachments/assets/dc1d5b29-aabe-4f72-998b-1b0b3ce3655f)
+
 
 ## 구현 기능
 - **회원 기능**
