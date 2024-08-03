@@ -31,7 +31,7 @@ export interface GetPostResponseDto {
   id: number;
   content: string;
   imagePath: string;
-  totalLikeCount: number;
+  likeCount: number;
   isLike: boolean;
   memberId: number;
   nickname: string;
@@ -61,7 +61,22 @@ export type GetPostsResponseDto = {
     id: number;
     content: string;
     imagePath: string;
-    totalLikeCount: number;
+    likeCount: number;
+    isLike: boolean;
+    memberId: number;
+    nickname: string;
+    profilePath: string;
+    commentCount: number;
+  }[];
+};
+
+export type GetPopularPostsResponseDto = {
+  totalCount: number;
+  posts: {
+    id: number;
+    content: string;
+    imagePath: string;
+    likeCount: number;
     isLike: boolean;
     memberId: number;
     nickname: string;

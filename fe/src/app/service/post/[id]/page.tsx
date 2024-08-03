@@ -1,7 +1,4 @@
 import { GetPostResponseDto } from '@/apis/post';
-import Image from 'next/image';
-import * as styles from './page.css';
-import { Typography } from '@/components/atoms/Typography';
 import { cookies } from 'next/headers';
 import { ApiResponse } from '@/apis/types';
 import { PostItem } from '@/components/blocks/PostItem';

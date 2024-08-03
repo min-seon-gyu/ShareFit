@@ -8,6 +8,10 @@ export const imgWrap = recipe({
     cursor: 'pointer',
 
     position: 'relative',
+
+    ':hover': {
+      opacity: 0.8,
+    },
   },
 
   variants: {

@@ -1,39 +1,52 @@
 'use client';
 
-import { GetPostResponseDto } from '@/apis/post';
+import { getPostApi, GetPostResponseDto } from '@/apis/post';
 import { Textfield } from '@/components/atoms/Textfield';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import * as styles from './index.css';
 import { Button } from '@/components/atoms/Button';
 import { useCreateComment } from '@/apis/comments/comments.hooks';
 import { ProfileIcon } from '@/components/atoms/ProfileIcon';
 import { Typography } from '@/components/atoms/Typography';
+import { PostItemContext } from '../PostItem';
 
-type Props = {
-  id: number;
-  data: GetPostResponseDto;
-};
+export default function Comments() {
+  const context = useContext(PostItemContext);
 
-export default function Comments({ id, data }: Props) {
+  if (context === null) {
+    throw new Error('PostItemContext is null');
+  }
+
+  const { post, setPost } = context;
+  const id = post.id;
+  const comments = post.comments.comments;
+
   const [input, setInput] = useState('');
-
-  const comments = data.comments.comments;
 
   const { createCommentMutate } = useCreateComment();
 
+  /** 댓글 input 변경 */
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
+  /** 댓글 등록 */
   const handleCreateComment = () => {
     createCommentMutate(
       { id, content: input },
       {
         onSuccess: () => {
           setInput('');
+          refetch();
         },
       },
     );
+  };
+
+  /** refetch */
+  const refetch = async () => {
+    const data = await getPostApi(id);
+    setPost(data.data.data);
   };
 
   return (
