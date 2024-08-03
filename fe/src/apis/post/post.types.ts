@@ -69,3 +69,18 @@ export type GetPostsResponseDto = {
     commentCount: number;
   }[];
 };
+
+export type GetPopularPostsResponseDto = {
+  totalCount: number;
+  posts: {
+    id: number;
+    content: string;
+    imagePath: string;
+    likeCount: number;
+    isLike: boolean;
+    memberId: number;
+    nickname: string;
+    profilePath: string;
+    commentCount: number;
+  }[];
+};
