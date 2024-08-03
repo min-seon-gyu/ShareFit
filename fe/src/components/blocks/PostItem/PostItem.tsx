@@ -33,7 +33,7 @@ export const PostItemContext = createContext<{
 export function PostItem({ data }: Props) {
   const [post, setPost] = useState<Post>(data);
 
-  const { id, profilePath, memberId, nickname, totalLikeCount, isLike, imagePath, content } = post;
+  const { id, profilePath, memberId, nickname, likeCount, isLike, imagePath, content } = post;
 
   const POST_DETAIL = `${POST}/${id}`;
   const MEMBER_DETAIL = `${MEMBER}/${memberId}`;
@@ -46,7 +46,7 @@ export function PostItem({ data }: Props) {
     if (!isLike) {
       addLikeMutate(id, {
         onSuccess: () => {
-          setPost((prev) => ({ ...prev, isLike: true, totalLikeCount: prev.totalLikeCount + 1 }));
+          setPost((prev) => ({ ...prev, isLike: true, likeCount: prev.likeCount + 1 }));
         },
       });
       return;
@@ -54,7 +54,7 @@ export function PostItem({ data }: Props) {
 
     cancelLikeMutate(id, {
       onSuccess: () => {
-        setPost((prev) => ({ ...prev, isLike: false, totalLikeCount: prev.totalLikeCount - 1 }));
+        setPost((prev) => ({ ...prev, isLike: false, likeCount: prev.likeCount - 1 }));
       },
     });
   };
@@ -77,7 +77,7 @@ export function PostItem({ data }: Props) {
             <Icon className={styles.icon} name="chat" fill={black} />
           </Link>
         </div>
-        <Typography variant="sh4">좋아요 {totalLikeCount}개</Typography>
+        <Typography variant="sh4">좋아요 {likeCount}개</Typography>
 
         {/* only List */}
         {!isPostDetail(post) && (

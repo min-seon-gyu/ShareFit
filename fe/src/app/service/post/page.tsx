@@ -25,6 +25,8 @@ export default async function PostPage() {
   const data = await fetchPostsData();
   const { posts, totalPages } = data ?? {};
 
+  console.log(posts);
+
   return (
     <div>
       {posts?.map((post) => <PostItem key={post.id} data={post} />)}
