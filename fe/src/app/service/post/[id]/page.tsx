@@ -2,6 +2,7 @@ import { GetPostResponseDto } from '@/apis/post';
 import { cookies } from 'next/headers';
 import { ApiResponse } from '@/apis/types';
 import { PostItem } from '@/components/blocks/PostItem';
+import { RefreshHandler } from '@/components/layouts/RefreshHandler';
 
 type Props = {
   params: {
@@ -31,6 +32,7 @@ export default async function PostDetail({ params: { id } }: Props) {
   return (
     <div>
       <PostItem data={data} />
+      <RefreshHandler />
     </div>
   );
 }

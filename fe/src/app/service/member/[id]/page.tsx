@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { POST } from '@/constants/routes';
 import { MemberImageLoader } from '@/components/blocks/MemberImageLoader';
+import { RefreshHandler } from '@/components/layouts/RefreshHandler';
 
 type Props = {
   params: {
@@ -80,6 +81,7 @@ export default async function Member({ params: { id } }: Props) {
       </div>
 
       <MemberImageLoader totalPages={totalPages} uuid={uuid} />
+      <RefreshHandler />
     </div>
   );
 }
