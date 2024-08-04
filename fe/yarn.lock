@@ -4038,7 +4038,6 @@ __metadata:
     prettier: "npm:^3.3.2"
     react: "npm:^18"
     react-dom: "npm:^18"
-    react-modal-ez: "npm:^1.0.2"
     typescript: "npm:^5"
   languageName: unknown
   linkType: soft
@@ -5812,15 +5811,6 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
-  languageName: node
-  linkType: hard
-
-"react-modal-ez@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "react-modal-ez@npm:1.0.2"
-  peerDependencies:
-    react: ^18.3.1
-  checksum: 10c0/9e51c182b2e463c215093db46dd3459822562261e0b5349e6a3ee5ee388a7b367ee34bbce1566c5e4300f9d3486b4be71785329f267c498b8841e939bcb57373
   languageName: node
   linkType: hard
 
