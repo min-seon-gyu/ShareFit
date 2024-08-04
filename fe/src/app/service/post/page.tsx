@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import * as styles from './page.css';
 import { Typography } from '@/components/atoms/Typography';
 import { PopularItem } from '@/components/blocks/PopularItem';
+import { RefreshHandler } from '@/components/layouts/RefreshHandler';
 
 const fetchPostsData = async (): Promise<GetPostsResponseDto> => {
   const cookieStore = cookies();
@@ -62,6 +63,7 @@ export default async function PostPage() {
 
       {/* infinite Scroll Loader */}
       {totalPages > 1 && <PostItemLoader totalPages={totalPages} />}
+      <RefreshHandler />
     </div>
   );
 }

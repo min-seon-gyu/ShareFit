@@ -36,6 +36,8 @@ export function MemberImageLoader({ totalPages, uuid }: Props) {
     );
     const responseData: ApiResponse<GetPostsResponseDto> = await response.json();
 
+    console.log(responseData.data);
+
     const newPosts = responseData.data.posts;
 
     setPage(nextPage);
