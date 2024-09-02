@@ -69,8 +69,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.POST,"/post").authenticated()
-                        .requestMatchers(HttpMethod.PATCH,"/post/**").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/post/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH,"/post").authenticated()
                         .requestMatchers(HttpMethod.DELETE,"/post/**").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/posts").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/posts/**").authenticated()
                         .requestMatchers("/like/**").authenticated()
                         .requestMatchers("/comment/**").authenticated()
                         .anyRequest().permitAll());
